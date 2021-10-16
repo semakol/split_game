@@ -1,8 +1,6 @@
-import pygame
 import math
-from settings import *
+
 from entity.bullet import Bullet
-import random
 
 
 def angel_face(t1, t2):
@@ -11,19 +9,10 @@ def angel_face(t1, t2):
     if dx == 0:
         dx = 1
 
-    pre_angel = math.fabs(math.degrees(math.atan2(dy, dx)))
-    if (pre_angel >= 90):
-        pre_angel = pre_angel - 90
-    xt = round((90 - pre_angel) / 90, 3)
-    yt = round(pre_angel / 90, 3)
-    if (dx > 0) & (dy >= 0):
-        angel = xt, yt
-    elif (dx < 0) & (dy > 0):
-        angel = -yt, xt
-    elif (dx > 0) & (dy < 0):
-        angel = xt, -yt
-    else:
-        angel = -yt, -xt
+    pre_angel = math.atan2(dy, dx)
+    xt = math.cos(pre_angel)
+    yt = math.sin(pre_angel)
+    angel = xt, yt
     return angel
 
 
@@ -32,9 +21,8 @@ def cords_face(t1, angel, len, size):
     y = t1[1] + angel[1] * size * len
     return (x, y)
 
-def spawn_bullet(list,output):
+
+def spawn_bullet(list, output):
     e = Bullet()
     e.setup(output=output)
     list.append(e)
-
-
