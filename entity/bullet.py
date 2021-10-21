@@ -3,21 +3,14 @@ from settings import *
 import random
 
 class Bullet():
-    def __init__(self):
-        self.angel = [0,0]
-        self.y, self.x = 10, 10
-        self.speed = 6
+    def __init__(self, output):
+        self.angel = [output.angel[0], output.angel[1]]
+        self.x, self.y = output.pos
+        self.speed = 5
         self.size = 2
-        self.output = 2
+        self.output = output
         self.brust = 2
         self.brusting = random.random() * self.brust
-
-
-    def setup(self, output):
-        self.output = output
-        self.x, self.y = output.pos
-        self.angel = [output.angel[0], output.angel[1]]
-
 
     @property
     def pos(self):

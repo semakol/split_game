@@ -12,7 +12,7 @@ class Player():
         self.y, self.x = standart_pos
         self.speed = standart_speed
         self.pos_face = standart_pos
-        self.size = 40
+        self.size = 12
         self.speedShoting = 0
 
     @property
