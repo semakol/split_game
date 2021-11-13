@@ -2,7 +2,7 @@ from cords import set_cord
 from entity.player import Player
 from draw import *
 from maping import world_map
-from defs import spawn_bullet
+from defs import *
 
 
 # Создаем игру и окно
@@ -14,6 +14,7 @@ clock = pygame.time.Clock()
 player = Player()
 ListofBullet = []
 pygame.mouse.set_visible(False)
+keys = pygame.key.get_pressed()
 
 # Цикл
 running = True
@@ -25,21 +26,28 @@ while running:
         # Проверяем выход из игры
         if event.type == pygame.QUIT:
             running = False
+
     mouse_pos = pygame.mouse.get_pos()
     player.movement()
+    player.tp()
+    cam_pos = player.pos
     player.colision_player()
-    player.shoot(list=ListofBullet)
-    for l in ListofBullet:
-        l.movement()
-        i = l.collision()
-        if i:
-            ListofBullet.remove(l)
     screen.fill(BLACK)
     # set_cord(screen, player, mouse_pos)
     draw_player(screen, player, mouse_pos)
-    draw_map(screen, world_map)
+    draw_map(screen, world_map, cam_pos)
     draw_bullet(screen, ListofBullet)
     pygame.display.flip()
 
 
 pygame.quit()
+
+
+
+
+# player.shoot(list=ListofBullet)
+    # for l in ListofBullet:
+    #     l.movement()
+    #     i = l.collision()
+    #     if i:
+    #         ListofBullet.remove(l)

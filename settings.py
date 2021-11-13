@@ -10,7 +10,7 @@ SCALE_x = WIDTH / 1280
 SCALE_y = HEIGHT / 720
 
 # Начальные параметры
-standart_pos = (Half_HEIGHT, Half_WIDHT)
+standart_pos = (Half_WIDHT, Half_HEIGHT)
 standart_speed = 2
 
 # Задаем цвета

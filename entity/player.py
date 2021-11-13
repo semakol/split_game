@@ -9,11 +9,12 @@ class Player():
 
     def __init__(self):
         self.angel = 0
-        self.y, self.x = standart_pos
+        self.x, self.y = standart_pos
         self.speed = standart_speed
         self.pos_face = standart_pos
         self.size = 12
         self.speedShoting = 0
+        self.dimension = 1
 
     @property
     def pos(self):
@@ -35,8 +36,8 @@ class Player():
             self.x += self.speed
         if keys[pygame.K_a]:
             self.x -= self.speed
-        self.angel = angel_face((self.x, self.y), pygame.mouse.get_pos())
-        self.pos_face = cords_face((self.x, self.y), self.angel, SCALE_x, self.size)
+        self.angel = angel_face(standart_pos, pygame.mouse.get_pos())
+        self.pos_face = cords_face(standart_pos, self.angel, SCALE_x, self.size)
 
     def colision_player(self):
         for i in world_map:
@@ -63,5 +64,13 @@ class Player():
         if key[0]:
             spawn_bullet(list,self)
 
+    def tp(self):
+        if pygame.key.get_pressed()[pygame.K_SPACE]:
+            if self.dimension == 1:
+                self.x += 21 * TILE_x
+                self.dimension = 2
+            if self.dimension == 2:
+                self.x -= 21 * TILE_x
+                self.dimension = 1
 
 
