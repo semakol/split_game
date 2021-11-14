@@ -26,12 +26,15 @@ while running:
         # Проверяем выход из игры
         if event.type == pygame.QUIT:
             running = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                player.tp()
 
     mouse_pos = pygame.mouse.get_pos()
     player.movement()
-    player.tp()
     cam_pos = player.pos
     player.colision_player()
+    player.pos_face_move()
     screen.fill(BLACK)
     # set_cord(screen, player, mouse_pos)
     draw_player(screen, player, mouse_pos)

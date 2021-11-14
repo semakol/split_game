@@ -15,6 +15,7 @@ class Player():
         self.size = 12
         self.speedShoting = 0
         self.dimension = 1
+        self.stuck = 0
 
     @property
     def pos(self):
@@ -23,10 +24,12 @@ class Player():
     def angel(self):
         return self.angel
 
-    def pos_face(self):
-        return self.pos_face
+    def pos_face_move(self):
+        self.angel = angel_face(standart_pos, pygame.mouse.get_pos())
+        self.pos_face = cords_face(standart_pos, self.angel, SCALE_x, self.size)
 
     def movement(self):
+        if self.stuck == 1: return
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
             self.y -= self.speed
@@ -36,13 +39,20 @@ class Player():
             self.x += self.speed
         if keys[pygame.K_a]:
             self.x -= self.speed
-        self.angel = angel_face(standart_pos, pygame.mouse.get_pos())
-        self.pos_face = cords_face(standart_pos, self.angel, SCALE_x, self.size)
+
 
     def colision_player(self):
         for i in world_map:
             x = i[0] * TILE_x
             y = i[1] * TILE_y
+            if (x < self.x) \
+                & (x + TILE_x > self.x) \
+                & (y < self.y) \
+                & (y + TILE_y > self.y):
+                self.stuck = 1
+                return
+            else: self.stuck = 0
+
             if      (x - self.size < self.x) \
                     & (x + TILE_x + self.size > self.x) \
                     & (y - self.size < self.y) \
@@ -53,7 +63,7 @@ class Player():
                     if x + TILE_x / 2 < self.x:
                         self.x += self.speed
 
-                if not ((y < self.y) & (y + TILE_y > self.y)):
+                elif not ((y < self.y) & (y + TILE_y > self.y)):
                     if y + TILE_y / 2 > self.y:
                         self.y -= self.speed
                     if y + TILE_y / 2 < self.y:
@@ -65,12 +75,12 @@ class Player():
             spawn_bullet(list,self)
 
     def tp(self):
-        if pygame.key.get_pressed()[pygame.K_SPACE]:
-            if self.dimension == 1:
-                self.x += 21 * TILE_x
-                self.dimension = 2
-            if self.dimension == 2:
-                self.x -= 21 * TILE_x
-                self.dimension = 1
-
+        if self.dimension == 1:
+            self.x += 21 * TILE_x
+            self.dimension = 2
+            return
+        if self.dimension == 2:
+            self.x -= 21 * TILE_x
+            self.dimension = 1
+            return
 
