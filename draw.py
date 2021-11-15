@@ -5,10 +5,16 @@ import pygame
 
 
 def draw_map(screen, world_map, cam_pos):
-    for x, y in world_map:
-        a_pos = (-cam_pos[0]+Half_WIDHT,-cam_pos[1]+Half_HEIGHT)
-        pygame.draw.rect(screen, GREEN, (x * TILE_x + a_pos[0], y * TILE_y + a_pos[1], TILE_x, TILE_y), 2)
-        # draw_text(screen, f'{x} {y}', 20, x*TILE_x+30, y*TILE_y)
+    a_pos = (-cam_pos[0] + Half_WIDHT, -cam_pos[1] + Half_HEIGHT)
+    for i in range(0, 100):
+        for t in range(0, 100):
+            if world_map[i][t] == 'W':
+                pygame.draw.rect(screen, GREEN, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1], TILE_x, TILE_y), 2)
+                # draw_text(screen, f'{x} {y}', 20, x*TILE_x+30, y*TILE_y)
+            if world_map[i][t] == 'S':
+                pygame.draw.rect(screen, RED, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1], TILE_x, TILE_y), 2)
+            if world_map[i][t] == 'E':
+                pygame.draw.rect(screen, WHITE, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1], TILE_x, TILE_y), 2)
 
 
 def draw_player(screen, player, mouse_pos):

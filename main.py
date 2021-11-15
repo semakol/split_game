@@ -1,7 +1,7 @@
 from cords import set_cord
 from entity.player import Player
 from draw import *
-from maping import world_map
+from maping import world_map, spawn_pos, end_pos
 from defs import *
 
 
