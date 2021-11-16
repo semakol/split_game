@@ -25,6 +25,3 @@ def cords_face(t1, angel, len, size):
 def spawn_bullet(list, output):
     e = Bullet(output)
     list.append(e)
-
-
-

@@ -1,4 +1,4 @@
-from maping import world_map
+
 from settings import *
 import random
 

@@ -10,51 +10,25 @@ def map():
     return x
 
 
-text_map = [
-    'WWWWWWWWWWWWWWWWWWWW.WWWWWWWWWWWWWWWWWWWW',
-    'WS..W....W.........W.W.W....W......W....W',
-    'WWWWWWWWWWWWWWWWWW.W.W.WWWWWWWWWWWWWWWW.W',
-    'W............W.....W.W.....W............W',
-    'W.WWWWWWWWWWWWWWWWWW.W.WWWWWWWWWWWWWWWWWW',
-    'W.......W..........W.W.............W....W',
-    'WWWWWWWWWWWWWWWWWW.W.W.WWWWWWWWWWWWWWWW.W',
-    'W....W.......W.....W.W..W....W..........W',
-    'W....W.......W.....W.WE.W....W..........W',
-    'WWWWWWWWWWWWWWWWWWWW.WWWWWWWWWWWWWWWWWWWW',
-]
-
-world_map = map()
-for j, row in enumerate(text_map):
-    for i, char in enumerate(row):
-        world_map[i][j] = char
-        if char == 'S':
-            spawn_pos = (i * TILE_x + TILE_x/2, j * TILE_y + TILE_y/2)
-        if char == 'E':
-            end_pos = (i * TILE_x + TILE_x/2, j * TILE_y + TILE_y/2)
+def scan(text_map):
+    spawn_pos = 0,0
+    end_pos = 0,0
+    world_map = map()
+    for j, row in enumerate(text_map):
+        if row == 'jump =\n':
+             jump = int(text_map.readline(j+1))
+        for i, char in enumerate(row):
+            world_map[i][j] = char
+            if char == 'S':
+                spawn_pos = (i * TILE_x + TILE_x / 2, j * TILE_y + TILE_y / 2)
+            if char == 'E':
+                end_pos = (i,j)
+    return world_map, spawn_pos, end_pos, jump
 
 
-# text_map = [
-#     'WWWWWWWWWWWWWWWWWWWW',
-#     'W..................W',
-#     'WWWW...............W',
-#     'W..................W',
-#     'W.......WWW........W',
-#     'W.......WWW........W',
-#     'W..................W',
-#     'W....WWWWWWWWW.....W',
-#     'W..................W',
-#     'WWWWWWWWWWWWWWWWWWWW',
-# ]
+def next_level(number):
+    text_level = open(f'levels/level_{number}', 'r')
+    s = scan(text_level)
+    text_level.close()
+    return s
 
-# text_map = [
-#     '....................',
-#     '....................',
-#     '....................',
-#     '....................',
-#     '..........W.........',
-#     '....................',
-#     '....................',
-#     '....................',
-#     '....................',
-#     '....................',
-# ]

@@ -1,9 +1,9 @@
 from cords import set_cord
 from entity.player import Player
 from draw import *
-from maping import world_map, spawn_pos, end_pos
+from maping import next_level
 from defs import *
-
+level_number = 1
 
 # Создаем игру и окно
 pygame.init()
@@ -11,8 +11,8 @@ pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("My Game")
 clock = pygame.time.Clock()
-player = Player()
-ListofBullet = []
+level = next_level(level_number)
+player = Player(level)
 pygame.mouse.set_visible(False)
 keys = pygame.key.get_pressed()
 
@@ -29,17 +29,21 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 player.tp()
-
+    if player.end:
+        level_number += 1
+        level = next_level(level_number)
+        player.__init__(level)
+        player.end = 0
     mouse_pos = pygame.mouse.get_pos()
     player.movement()
     cam_pos = player.pos
-    player.colision_player()
+    player.colision_player(level[0])
+    player.event()
     player.pos_face_move()
     screen.fill(BLACK)
     # set_cord(screen, player, mouse_pos)
     draw_player(screen, player, mouse_pos)
-    draw_map(screen, world_map, cam_pos)
-    draw_bullet(screen, ListofBullet)
+    draw_map(screen, level[0], cam_pos)
     pygame.display.flip()
 
 
