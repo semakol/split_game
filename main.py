@@ -46,6 +46,7 @@ while running:
     # set_cord(screen, player, mouse_pos)
     draw_map(screen, level[0], cam_pos, textures)
     draw_player(screen, player, mouse_pos)
+    draw_text(screen, str(clock), 20, 0, 0 )
     pygame.display.flip()
 
 

@@ -3,7 +3,7 @@
 # Экран
 WIDTH = 1280
 HEIGHT = 720
-FPS = 60
+FPS = 80
 Half_HEIGHT = HEIGHT // 2
 Half_WIDHT = WIDTH // 2
 TILE_y = HEIGHT / 10
@@ -21,3 +21,10 @@ BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
+
+textures_id= [
+    ['W', 'Wall'],
+    ['.', 'floor'],
+    ['E', 'floor_end'],
+    ['S', 'floor_start']
+]

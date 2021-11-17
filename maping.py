@@ -11,19 +11,24 @@ def map():
 
 
 def scan(text_map):
+    n = 0
     spawn_pos = 0,0
     end_pos = 0,0
     world_map = map()
     for j, row in enumerate(text_map):
-        if row == 'jump =\n':
-             jump = int(text_map.readline(j+1))
+        if row == '@\n':
+            for t, row2 in enumerate(text_map):
+                if row2 == 'jump =\n':
+                    jump = int(text_map.readline(t + j + 1))
+                    return world_map, spawn_pos, end_pos, jump
         for i, char in enumerate(row):
+            if char == '\n':
+                break
             world_map[i][j] = char
             if char == 'S':
                 spawn_pos = (i * TILE_x + TILE_x / 2, j * TILE_y + TILE_y / 2)
             if char == 'E':
                 end_pos = (i,j)
-    return world_map, spawn_pos, end_pos, jump
 
 
 def next_level(number):
