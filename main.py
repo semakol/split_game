@@ -5,6 +5,7 @@ from maping import next_level
 from defs import *
 level_number = 1
 
+
 # Создаем игру и окно
 pygame.init()
 pygame.mixer.init()
@@ -15,6 +16,7 @@ level = next_level(level_number)
 player = Player(level)
 pygame.mouse.set_visible(False)
 keys = pygame.key.get_pressed()
+textures = textures_load()
 
 # Цикл
 running = True
@@ -42,8 +44,8 @@ while running:
     player.pos_face_move()
     screen.fill(BLACK)
     # set_cord(screen, player, mouse_pos)
+    draw_map(screen, level[0], cam_pos, textures)
     draw_player(screen, player, mouse_pos)
-    draw_map(screen, level[0], cam_pos)
     pygame.display.flip()
 
 

@@ -1,4 +1,8 @@
 import math
+import os
+
+import pygame
+
 from settings import *
 from entity.bullet import Bullet
 
@@ -25,3 +29,12 @@ def cords_face(t1, angel, len, size):
 def spawn_bullet(list, output):
     e = Bullet(output)
     list.append(e)
+
+def textures_load():
+    path = 'resources/textures'
+    filenames = [f for f in os.listdir(path) if f.endswith('.png')]
+    images = {}
+    for name in filenames:
+        imagename = os.path.splitext(name)[0]
+        images[imagename] = pygame.image.load(os.path.join(path, name)).convert_alpha()
+    return images
