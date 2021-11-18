@@ -1,6 +1,6 @@
 import pygame
 
-from defs import angel_face, cords_face, spawn_bullet
+from defs import angel_face, cords_face
 from settings import *
 
 
@@ -17,6 +17,7 @@ class Player():
         self.end_pos = level[2]
         self.end = 0
         self.jump = level[3]
+        self.texture = 'player_down'
 
     @property
     def pos(self):
@@ -31,12 +32,16 @@ class Player():
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
             self.y -= self.speed
+            self.texture = 'player_up'
         if keys[pygame.K_s]:
             self.y += self.speed
+            self.texture = 'player_down'
         if keys[pygame.K_d]:
             self.x += self.speed
+            self.texture = 'player_right'
         if keys[pygame.K_a]:
             self.x -= self.speed
+            self.texture = 'player_left'
 
     def colision_player(self, world_map):
         for i in range(0, 100):
@@ -68,12 +73,8 @@ class Player():
                                 if y + TILE_y / 2 < self.y:
                                     self.y += self.speed
 
-    def shoot(self, list):
-        key = pygame.mouse.get_pressed()
-        if key[0]:
-            spawn_bullet(list, self)
-
     def tp(self):
+        # /tp sema_kol school
         if self.dimension == 1:
             self.x += self.jump * TILE_x
             self.dimension = 2

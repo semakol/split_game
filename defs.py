@@ -25,11 +25,6 @@ def cords_face(t1, angel, len, size):
     y = t1[1] + angel[1] * size * len
     return (x, y)
 
-
-def spawn_bullet(list, output):
-    e = Bullet(output)
-    list.append(e)
-
 def textures_load():
     path = 'resources/textures'
     filenames = [f for f in os.listdir(path) if f.endswith('.png')]
