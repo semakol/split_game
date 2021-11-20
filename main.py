@@ -39,17 +39,18 @@ while running:
     mouse_pos = pygame.mouse.get_pos()
     player.movement()
     cam_pos = player.pos
-    player.colision_player(level[0])
+    player.colision_player(level[0], level[4])
     player.event()
     player.pos_face_move()
 
     screen.fill(BLACK)
     # set_cord(screen, player, mouse_pos)
-    draw_second_plan(screen, level[0], cam_pos, textures)
+    draw_second_plan(screen, level[0], cam_pos, textures, player.y, level[4])
     # draw_map(screen, level[0], cam_pos, textures)
     draw_player(screen, player, mouse_pos, textures)
-    draw_first_plan(screen, level[0], cam_pos, textures, player)
+    draw_first_plan(screen, level[0], cam_pos, textures, player.y, level[4])
     draw_text(screen, str(clock), 20, 0, 0 )
+    pygame.draw.circle(screen, BLUE, mouse_pos, 3 * SCALE_x)
     pygame.display.flip()
 
 

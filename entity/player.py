@@ -43,9 +43,9 @@ class Player():
             self.x -= self.speed
             self.texture = 'player_left'
 
-    def colision_player(self, world_map):
-        for i in range(0, 100):
-            for t in range(0, 100):
+    def colision_player(self, world_map, size):
+        for i in range(0, size[0]):
+            for t in range(0, size[1]):
                 x = i * TILE_x
                 y = t * TILE_y
                 if world_map[i][t] == 'W':
