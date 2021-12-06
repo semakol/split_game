@@ -3,6 +3,7 @@ from entity.player import Player
 from draw import *
 from maping import next_level
 from defs import *
+import pygame
 level_number = 1
 
 
@@ -13,10 +14,11 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("My Game")
 clock = pygame.time.Clock()
 level = next_level(level_number)
-player = Player(level)
+textures = textures_load()
+player = Player(level, textures)
 pygame.mouse.set_visible(False)
 keys = pygame.key.get_pressed()
-textures = textures_load()
+buffer = buffer_draw(level[4],level[0])
 
 # Цикл
 running = True
@@ -34,8 +36,9 @@ while running:
     if player.end:
         level_number += 1
         level = next_level(level_number)
-        player.__init__(level)
+        player.__init__(level, textures)
         player.end = 0
+        buffer = buffer_draw(level[4], level[0])
     mouse_pos = pygame.mouse.get_pos()
     player.movement()
     cam_pos = player.pos
@@ -45,10 +48,8 @@ while running:
 
     screen.fill(BLACK)
     # set_cord(screen, player, mouse_pos)
-    draw_second_plan(screen, level[0], cam_pos, textures, player.y, level[4])
     # draw_map(screen, level[0], cam_pos, textures)
-    draw_player(screen, player, mouse_pos, textures)
-    draw_first_plan(screen, level[0], cam_pos, textures, player.y, level[4])
+    draw(screen, buffer, player, cam_pos, textures)
     draw_text(screen, str(clock), 20, 0, 0 )
     pygame.draw.circle(screen, BLUE, mouse_pos, 3 * SCALE_x)
     pygame.display.flip()

@@ -23,8 +23,8 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
 textures_id= [
-    ['W', 'Wall', 1],
-    ['.', 'floor', 2],
-    ['E', 'floor_end', 2],
-    ['S', 'floor_start', 2]
+    ['W', 'Wall'],
+    ['.', 'floor'],
+    ['E', 'floor_end'],
+    ['S', 'floor_start']
 ]

@@ -6,7 +6,7 @@ from settings import *
 
 class Player():
 
-    def __init__(self, level):
+    def __init__(self, level, textures):
         self.angel = 0
         self.x, self.y = level[1]
         self.speed = standart_speed
@@ -17,7 +17,8 @@ class Player():
         self.end_pos = level[2]
         self.end = 0
         self.jump = level[3]
-        self.texture = 'player_down'
+        self.textures = textures
+        self.image = self.textures['player_down']
 
     @property
     def pos(self):
@@ -32,16 +33,16 @@ class Player():
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
             self.y -= self.speed
-            self.texture = 'player_up'
+            self.image = self.textures['player_up']
         if keys[pygame.K_s]:
             self.y += self.speed
-            self.texture = 'player_down'
+            self.image = self.textures['player_down']
         if keys[pygame.K_d]:
             self.x += self.speed
-            self.texture = 'player_right'
+            self.image = self.textures['player_right']
         if keys[pygame.K_a]:
             self.x -= self.speed
-            self.texture = 'player_left'
+            self.image = self.textures['player_left']
 
     def colision_player(self, world_map, size):
         for i in range(0, size[0]):

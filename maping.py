@@ -10,7 +10,7 @@ def map(X, Y):
     return x
 
 
-def scan(text_map, text_map2):
+def scan(text_map):
     m = -1
     spawn_pos = 0, 0
     end_pos = 0, 0
@@ -53,9 +53,7 @@ def scan(text_map, text_map2):
 
 def next_level(number):
     text_level = open(f'levels/level_{number}', 'r')
-    text_level2 = open(f'levels/level_{number}', 'r')
-    s = scan(text_level, text_level2)
+    s = scan(text_level)
     text_level.close()
-    text_level2.close()
     return s
 
