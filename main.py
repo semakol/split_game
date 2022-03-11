@@ -1,4 +1,4 @@
-from cords import set_cord
+
 from entity.player import Player
 from draw import *
 from maping import next_level
@@ -18,7 +18,7 @@ textures = textures_load()
 player = Player(level, textures)
 pygame.mouse.set_visible(False)
 keys = pygame.key.get_pressed()
-buffer = buffer_draw(level[4],level[0])
+#buffer = buffer_draw(level[4],level[0][0])
 
 # Цикл
 running = True
@@ -38,18 +38,17 @@ while running:
         level = next_level(level_number)
         player.__init__(level, textures)
         player.end = 0
-        buffer = buffer_draw(level[4], level[0])
+#        buffer = buffer_draw(level[4], level[0][0])
     mouse_pos = pygame.mouse.get_pos()
     player.movement()
     cam_pos = player.pos
     player.colision_player(level[0], level[4])
     player.event()
-    player.pos_face_move()
 
     screen.fill(BLACK)
-    # set_cord(screen, player, mouse_pos)
     # draw_map(screen, level[0], cam_pos, textures)
-    draw(screen, buffer, player, cam_pos, textures)
+    draw(screen, level[0], level[4], player, cam_pos, textures)
+    pygame.draw.circle(screen, BLUE, standart_pos, 3 * SCALE_x)
     draw_text(screen, str(clock), 20, 0, 0 )
     pygame.draw.circle(screen, BLUE, mouse_pos, 3 * SCALE_x)
     pygame.display.flip()

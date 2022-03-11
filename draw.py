@@ -44,29 +44,39 @@ def buffer_draw(size, world_map):
         for t in range(0, size[1]):
             for l in textures_id:
                 if world_map[i][t] == l[0]:
-                    if (l[1] == 'floor') | (l[1] == 'floor_end') | (l[1] == 'floor_start'):
+                    if l[2]== 3:
                         third_plan.append([l[1], [i, t]])
-                    if l[1] == 'Wall':
+                    if l[2] == 2:
                         second_plan.append([l[1], [i, t]])
     return second_plan, third_plan, first_plan
 
 
-def draw(screen, buffer, player, cam_pos, textures):
+def draw(screen, world_map, size, player, cam_pos, textures):
     a_pos = (-cam_pos[0] + Half_WIDHT, -cam_pos[1] + Half_HEIGHT)
-    for i in buffer[1]:
-        image = pygame.transform.scale(textures.get(i[0]), (int(TILE_x), int(TILE_y)))
-        screen.blit(image, (i[1][0] * TILE_x + a_pos[0], i[1][1] * TILE_y + a_pos[1]))
+    for i in range(0, size[0]):
+        for t in range(0, size[1]):
+            image = textures.get(textures_id[str(world_map[0][i][t])])
+            screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1]))
 
-    for i in buffer[0]:
-        if i[1][1] <= player.pos[1]//TILE_y:
-            image = pygame.transform.scale(textures.get(i[0]), (int(TILE_x), int(TILE_y*1.5)))
-            screen.blit(image, (i[1][0] * TILE_x + a_pos[0], i[1][1] * TILE_y + a_pos[1]-(TILE_y*0.5)))
-    playerI = pygame.transform.scale(player.image, (int(TILE_x), int(TILE_y)))
+    for i in range(0, size[0]):
+        for t in range(0, size[1]):
+            if t <= player.pos[1]//TILE_y:
+                image = textures.get(textures_id[str(world_map[1][i][t])])
+                screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1]-(TILE_y*0.5)))
+
+    playerI = player.image
     screen.blit(playerI, (standart_pos[0] - (TILE_x / 2), standart_pos[1] - TILE_y))
-    for i in buffer[0]:
-        if i[1][1] > player.pos[1]//TILE_y:
-            image = pygame.transform.scale(textures.get(i[0]), (int(TILE_x), int(TILE_y*1.5)))
-            screen.blit(image, (i[1][0] * TILE_x + a_pos[0], i[1][1] * TILE_y + a_pos[1]-(TILE_y*0.5)))
+
+    for i in range(0, size[0]):
+        for t in range(0, size[1]):
+            if t > player.pos[1]//TILE_y:
+                image = textures.get(textures_id[str(world_map[1][i][t])])
+                screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+
+    for i in range(0, size[0]):
+        for t in range(0, size[1]):
+            image = textures.get(textures_id[str(world_map[2][i][t])])
+            screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1] - (TILE_y * 0.5)))
 
 
 def draw_text(surf, text, size, x, y):

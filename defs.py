@@ -1,5 +1,6 @@
 import math
 import os
+import sys
 
 import pygame
 
@@ -31,5 +32,11 @@ def textures_load():
     images = {}
     for name in filenames:
         imagename = os.path.splitext(name)[0]
-        images[imagename] = pygame.image.load(os.path.join(path, name)).convert_alpha()
+        img = pygame.image.load(os.path.join(path, name)).convert_alpha()
+        images[imagename] = pygame.transform.scale(img, (int(TILE_x),int(TILE_y*img.get_size()[1]/16)))
     return images
+
+def resource_path(relative):
+    if hasattr(sys, "_MEIPASS"):
+        return os.path.join(sys._MEIPASS, relative)
+    return os.path.join(relative)

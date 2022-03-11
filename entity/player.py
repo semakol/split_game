@@ -1,6 +1,5 @@
 import pygame
 
-from defs import angel_face, cords_face
 from settings import *
 
 
@@ -9,7 +8,7 @@ class Player():
     def __init__(self, level, textures):
         self.angel = 0
         self.x, self.y = level[1]
-        self.speed = standart_speed
+        self.speed = standart_speed * SCALE_x
         self.pos_face = standart_pos
         self.size = 12
         self.dimension = 1
@@ -23,10 +22,6 @@ class Player():
     @property
     def pos(self):
         return self.x, self.y
-
-    def pos_face_move(self):
-        self.angel = angel_face(standart_pos, pygame.mouse.get_pos())
-        self.pos_face = cords_face(standart_pos, self.angel, SCALE_x, self.size)
 
     def movement(self):
         if self.stuck == 1: return
@@ -49,30 +44,31 @@ class Player():
             for t in range(0, size[1]):
                 x = i * TILE_x
                 y = t * TILE_y
-                if world_map[i][t] == 'W':
-                    if (x < self.x) \
-                            & (x + TILE_x > self.x) \
-                            & (y < self.y) \
-                            & (y + TILE_y > self.y):
-                        self.stuck = 1
-                        return
-                    else:
-                        self.stuck = 0
-                        if (x - self.size < self.x) \
-                                & (x + TILE_x + self.size > self.x) \
-                                & (y - self.size < self.y) \
-                                & (y + TILE_y + self.size > self.y):
-                            if not ((x < self.x) & (x + TILE_x > self.x)):
-                                if x + TILE_x / 2 > self.x:
-                                    self.x -= self.speed
-                                if x + TILE_x / 2 < self.x:
-                                    self.x += self.speed
+                for level in world_map:
+                    if (level[i][t] == 'W') | (level[i][t] == 'w'):
+                        if (x < self.x) \
+                                & (x + TILE_x > self.x) \
+                                & (y < self.y) \
+                                & (y + TILE_y > self.y):
+                            self.stuck = 1
+                            return
+                        else:
+                            self.stuck = 0
+                            if (x - self.size < self.x) \
+                                    & (x + TILE_x + self.size > self.x) \
+                                    & (y - self.size < self.y) \
+                                    & (y + TILE_y + self.size > self.y):
+                                if not ((x < self.x) & (x + TILE_x > self.x)):
+                                    if x + TILE_x / 2 > self.x:
+                                        self.x -= self.speed
+                                    if x + TILE_x / 2 < self.x:
+                                        self.x += self.speed
 
-                            elif not ((y < self.y) & (y + TILE_y > self.y)):
-                                if y + TILE_y / 2 > self.y:
-                                    self.y -= self.speed
-                                if y + TILE_y / 2 < self.y:
-                                    self.y += self.speed
+                                elif not ((y < self.y) & (y + TILE_y > self.y)):
+                                    if y + TILE_y / 2 > self.y:
+                                        self.y -= self.speed
+                                    if y + TILE_y / 2 < self.y:
+                                        self.y += self.speed
 
     def tp(self):
         # /tp sema_kol school
@@ -93,3 +89,8 @@ class Player():
                 & (y - self.size < self.y) \
                 & (y + TILE_y + self.size > self.y):
             self.end = 1
+
+    def door_open(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_e]:
+            pass

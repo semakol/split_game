@@ -1,19 +1,41 @@
 @
 size =
-41
+58
 10
 @
 jump =
-21
+38
 @s
-
-WWWWWWWWWWWWWWWWWWWW WWWWWWWWWWWWWWWWWWWW
-WS..W....W.........W W.W....W......W....W
-WWWWWWWWWWWWWWWWWW.W W.WWWWWWWWWWWWWWWW.W
-W............W.....W W.....W............W
-W.WWWWWWWWWWWWWWWWWW W.WWWWWWWWWWWWWWWWWW
-W.......W..........W W.............W....W
-WWWWWWWWWWWWWWWWWW.W W.WWWWWWWWWWWWWWWW.W
-W....W.......W.....W W..W....W..........W
-W....W.......W.....W WE.W....W..........W
-WWWWWWWWWWWWWWWWWWWW WWWWWWWWWWWWWWWWWWWW
+@1
+....................                  ,,,,,,,,,,,,,,,,,,,,
+.S..................                  ,s,,,,,,,,,,,,,,,,,,
+....................                  ,,,,,,,,,,,,,,,,,,,,
+....................                  ,,,,,,,,,,,,,,,,,,,,
+....................                  ,,,,,,,,,,,,,,,,,,,,
+....................                  ,,,,,,,,,,,,,,,,,,,,
+....................                  ,,,,,,,,,,,,,,,,,,,,
+....................                  ,,,,,,,,,,,,,,,,,,,,
+.E..................                  ,e,,,,,,,,,,,,,,,,,,
+....................                  ,,,,,,,,,,,,,,,,,,,,
+@2
+WWWWWWWWWWWWWWWWWWWW                  wwwwwwwwwwwwwwwwwwww
+W   W    W         W                  w w    w      w    w
+WDWWWWW WWWWWWWWWW W                  wdwwwwwwwwwwwwwwww w
+W            W     W                  w     w            w
+WDWWWWWWWWW WWWWWWWW                  wdwwwwwwwwwwwwwwwwww
+W       W          W                  w             w    w
+WDWWWWWWW WWWWWWWW W                  wdwwwwwwwwwwwwwwww w
+W    W       W     W                  w  w    w          w
+W    W       W     W                  w  w    w          w
+WWWWWWWWWWWWWWWWWWWW                  wwwwwwwwwwwwwwwwwwww
+@3
+00000000000000000000                  00000000000000000000
+00000000000000000000                  00000000000000000000
+00000000000000000000                  00000000000000000000
+00000000000000000000                  00000000000000000000
+00000000000000000000                  00000000000000000000
+00000000000000000000                  00000000000000000000
+00000000000000000000                  00000000000000000000
+00000000000000000000                  00000000000000000000
+00000000000000000000                  00000000000000000000
+00000000000000000000                  00000000000000000000

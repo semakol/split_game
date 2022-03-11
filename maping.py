@@ -1,11 +1,12 @@
 from settings import *
+from entity.doors import Doors
 
 def map(X, Y):
     y = []
     x = []
-    for i in range(0, Y+2):
+    for i in range(0, Y):
         y.append(0)
-    for t in range(0, X+2):
+    for t in range(0, X):
         x.append(y.copy())
     return x
 
@@ -16,25 +17,59 @@ def scan(text_map):
     end_pos = 0, 0
     r = 0
     f = text_map.readlines()
-    for j in range(0,len(f)):
-        if  f[j] == '@\n':
-            if f[j+1] == 'size =\n':
-                size = (int(f[j+2]), int(f[j+3]))
-            if f[j+1] == 'jump =\n':
-                jump = int(f[j+2])
+    for j in range(0, len(f)):
+        if f[j] == '@\n':
+            if f[j + 1] == 'size =\n':
+                size = (int(f[j + 2]), int(f[j + 3]))
+            if f[j + 1] == 'jump =\n':
+                jump = int(f[j + 2])
         if f[j] == '@s\n':
             r = j
             break
-    world_map = map(size[0],size[1])
-    for j in range(r+2,len(f)):
-        m += 1
-        for i, char in enumerate(f[j]):
-            world_map[i][m] = char
-            if char == 'S':
-                spawn_pos = (i * TILE_x + TILE_x / 2, m * TILE_y + TILE_y / 2)
-            if char == 'E':
-                end_pos = (i,m)
-    return world_map, spawn_pos, end_pos, jump, size
+    doors = []
+    world_map1 = map(size[0], size[1])
+    world_map2 = map(size[0], size[1])
+    world_map3 = map(size[0], size[1])
+    for j in range(r, len(f)):
+        if f[j] == '@1\n':
+            m = -1
+            for t in range(j+1, j+size[1]+1):
+                m += 1
+                for i, char in enumerate(f[t]):
+                    if char == '\n':
+                        continue
+                    world_map1[i][m] = char
+                    if char == 'S':
+                        spawn_pos = (i * TILE_x + TILE_x / 2, m * TILE_y + TILE_y / 2)
+                    if char == 'E':
+                        end_pos = (i, m)
+        if f[j] == '@2\n':
+            m = -1
+            for t in range(j+1, j+size[1]+1):
+                m += 1
+                for i, char in enumerate(f[t]):
+                    if char == '\n':
+                        continue
+                    if char == 'D':
+                        doors.append(Doors((i,m), 0))
+                        world_map2[i][m] = '0'
+                        continue
+                    if char == 'd':
+                        doors.append(Doors((i,m), 1))
+                        world_map2[i][m] = '0'
+                        continue
+                    world_map2[i][m] = char
+        if f[j] == '@3\n':
+            m = -1
+            for t in range(j+1, j+size[1]+1):
+                m += 1
+                for i, char in enumerate(f[t]):
+                    if char == '\n':
+                        continue
+                    world_map3[i][m] = char
+
+    return (world_map1, world_map2, world_map3), spawn_pos, end_pos, jump, size, doors
+
 
 # def scan(text_map):
 #     spawn_pos = 0,0
@@ -50,10 +85,8 @@ def scan(text_map):
 #             if char == '\n':
 
 
-
 def next_level(number):
     text_level = open(f'levels/level_{number}', 'r')
     s = scan(text_level)
     text_level.close()
     return s
-

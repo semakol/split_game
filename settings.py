@@ -1,8 +1,8 @@
 
 
 # Экран
-WIDTH = 1280
-HEIGHT = 720
+WIDTH = 1920
+HEIGHT = 1020
 FPS = 80
 Half_HEIGHT = HEIGHT // 2
 Half_WIDHT = WIDTH // 2
@@ -10,6 +10,7 @@ TILE_y = HEIGHT / 10
 TILE_x = WIDTH / 20
 SCALE_x = WIDTH / 1280
 SCALE_y = HEIGHT / 720
+
 
 # Начальные параметры
 standart_pos = (Half_WIDHT, Half_HEIGHT)
@@ -22,9 +23,15 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
-textures_id= [
-    ['W', 'Wall'],
-    ['.', 'floor'],
-    ['E', 'floor_end'],
-    ['S', 'floor_start']
-]
+textures_id={
+    'W': 'Wall',
+    '.': 'floor',
+    'E': 'floor_end',
+    'S': 'floor_start',
+    'w': 'Wall_old',
+    ',': 'floor_old',
+    'e': 'floor_end_old',
+    's': 'floor_start_old',
+    '0': 'air',
+    ' ': 'air'
+}
