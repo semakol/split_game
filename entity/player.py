@@ -10,7 +10,7 @@ class Player():
         self.x, self.y = level[1]
         self.speed = standart_speed * SCALE_x
         self.pos_face = standart_pos
-        self.size = 12
+        self.size = 5 * SCALE_x
         self.dimension = 1
         self.stuck = 0
         self.end_pos = level[2]
@@ -39,13 +39,13 @@ class Player():
             self.x -= self.speed
             self.image = self.textures['player_left']
 
-    def colision_player(self, world_map, size):
+    def colision_player(self, level, size):
         for i in range(0, size[0]):
             for t in range(0, size[1]):
                 x = i * TILE_x
                 y = t * TILE_y
-                for level in world_map:
-                    if (level[i][t] == 'W') | (level[i][t] == 'w'):
+                for world in level[0]:
+                    if (world[i][t] == 'W') | (world[i][t] == 'w'):
                         if (x < self.x) \
                                 & (x + TILE_x > self.x) \
                                 & (y < self.y) \
@@ -69,6 +69,62 @@ class Player():
                                         self.y -= self.speed
                                     if y + TILE_y / 2 < self.y:
                                         self.y += self.speed
+        for door in level[5]:
+            if not door.open:
+                if door.direction == 0:
+                    x = door.pos[0] * TILE_x
+                    y = door.pos[1] * TILE_y + (TILE_y // 2.4)
+                    if (x < self.x) \
+                            & (x + TILE_x > self.x) \
+                            & (y < self.y) \
+                            & ((y + TILE_y // 5) > self.y):
+                        self.stuck = 0
+                        return
+                    else:
+                        self.stuck = 0
+                        if (x - self.size < self.x) \
+                                & (x + TILE_x + self.size > self.x) \
+                                & (y - self.size < self.y) \
+                                & (y + (TILE_y // 5) + self.size > self.y):
+                            if not ((x < self.x) & (x + TILE_x > self.x)):
+                                if x + TILE_x / 2 > self.x:
+                                    self.x -= self.speed
+                                if x + TILE_x / 2 < self.x:
+                                    self.x += self.speed
+
+                            elif not ((y < self.y) & (y + (TILE_y // 5) > self.y)):
+                                if y + (TILE_y // 5) / 2 > self.y:
+                                    self.y -= self.speed
+                                if y + (TILE_y // 5) / 2 < self.y:
+                                    self.y += self.speed
+
+                if door.direction == 1:
+                    x = door.pos[0] * TILE_x + (TILE_x // 2.4)
+                    y = door.pos[1] * TILE_y
+                    if (x < self.x) \
+                            & ((x + TILE_x // 5) > self.x) \
+                            & (y < self.y) \
+                            & (y + TILE_y > self.y):
+                        self.stuck = 1
+                        return
+                    else:
+                        self.stuck = 0
+                        if (x - self.size < self.x) \
+                                & (x + TILE_x // 5 + self.size > self.x) \
+                                & (y - self.size < self.y) \
+                                & (y + TILE_y + self.size > self.y):
+                            if not ((x < self.x) & (x + TILE_x // 5 > self.x)):
+                                if x + TILE_x // 5 / 2 > self.x:
+                                    self.x -= self.speed
+                                if x + TILE_x // 5 / 2 < self.x:
+                                    self.x += self.speed
+
+                            elif not ((y < self.y) & (y + TILE_y > self.y)):
+                                if y + TILE_y // 5 / 2 > self.y:
+                                    self.y -= self.speed
+                                if y + TILE_y // 5 / 2 < self.y:
+                                    self.y += self.speed
+
 
     def tp(self):
         # /tp sema_kol school

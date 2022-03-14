@@ -19,14 +19,14 @@ jump =
 ....................                  ,,,,,,,,,,,,,,,,,,,,
 @2
 WWWWWWWWWWWWWWWWWWWW                  wwwwwwwwwwwwwwwwwwww
-W   W    W         W                  w w    w      w    w
-WDWWWWW WWWWWWWWWW W                  wdwwwwwwwwwwwwwwww w
-W            W     W                  w     w            w
-WDWWWWWWWWW WWWWWWWW                  wdwwwwwwwwwwwwwwwwww
-W       W          W                  w             w    w
-WDWWWWWWW WWWWWWWW W                  wdwwwwwwwwwwwwwwww w
-W    W       W     W                  w  w    w          w
-W    W       W     W                  w  w    w          w
+W                  W                  w w    w      w    w
+W                  W                  w www              w
+W            W     W                  w                  w
+W     WDW    D     W                  w www              w
+W            W     W                  w                  w
+W                  W                  w wwwwwwwwwwwwwwww w
+W                  W                  w  w    w          w
+W                  W                  w  w    w          w
 WWWWWWWWWWWWWWWWWWWW                  wwwwwwwwwwwwwwwwwwww
 @3
 00000000000000000000                  00000000000000000000

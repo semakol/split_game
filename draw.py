@@ -51,7 +51,7 @@ def buffer_draw(size, world_map):
     return second_plan, third_plan, first_plan
 
 
-def draw(screen, world_map, size, player, cam_pos, textures):
+def draw(screen, world_map, size, player, cam_pos, textures, doors):
     a_pos = (-cam_pos[0] + Half_WIDHT, -cam_pos[1] + Half_HEIGHT)
     for i in range(0, size[0]):
         for t in range(0, size[1]):
@@ -59,19 +59,38 @@ def draw(screen, world_map, size, player, cam_pos, textures):
             screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1]))
 
     for i in range(0, size[0]):
-        for t in range(0, size[1]):
-            if t <= player.pos[1]//TILE_y:
-                image = textures.get(textures_id[str(world_map[1][i][t])])
-                screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1]-(TILE_y*0.5)))
+        for t in range(0, int(player.pos[1]/TILE_y)):
+            image = textures.get(textures_id[str(world_map[1][i][t])])
+            screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1]-(TILE_y*0.5)))
 
-    playerI = player.image
-    screen.blit(playerI, (standart_pos[0] - (TILE_x / 2), standart_pos[1] - TILE_y))
+    for door in doors:
+        if door.direction == 0:
+            if door.pos[1]*TILE_y+(TILE_y//1.5) < player.pos[1]:
+                image = textures.get(door.image)
+                screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+        else:
+            if door.pos[1] < int(player.pos[1]/TILE_y):
+                image = textures.get(door.image)
+                screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+
+
+    playerI = pygame.transform.scale(player.image, (int(TILE_y/2), int(TILE_x/2)))
+    screen.blit(playerI, (standart_pos[0]- TILE_x/4, standart_pos[1]- TILE_y/2))
 
     for i in range(0, size[0]):
-        for t in range(0, size[1]):
-            if t > player.pos[1]//TILE_y:
-                image = textures.get(textures_id[str(world_map[1][i][t])])
-                screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+        for t in range(int(player.pos[1]/TILE_y), size[1]):
+            image = textures.get(textures_id[str(world_map[1][i][t])])
+            screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+
+    for door in doors:
+        if door.direction == 0:
+            if door.pos[1] * TILE_y + (TILE_y // 1.5) >= player.pos[1]:
+                image = textures.get(door.image)
+                screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+        else:
+            if door.pos[1] >= int(player.pos[1] / TILE_y):
+                image = textures.get(door.image)
+                screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
 
     for i in range(0, size[0]):
         for t in range(0, size[1]):

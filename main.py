@@ -42,12 +42,12 @@ while running:
     mouse_pos = pygame.mouse.get_pos()
     player.movement()
     cam_pos = player.pos
-    player.colision_player(level[0], level[4])
+    player.colision_player(level, level[4])
     player.event()
 
     screen.fill(BLACK)
     # draw_map(screen, level[0], cam_pos, textures)
-    draw(screen, level[0], level[4], player, cam_pos, textures)
+    draw(screen, level[0], level[4], player, cam_pos, textures, level[5])
     pygame.draw.circle(screen, BLUE, standart_pos, 3 * SCALE_x)
     draw_text(screen, str(clock), 20, 0, 0 )
     pygame.draw.circle(screen, BLUE, mouse_pos, 3 * SCALE_x)

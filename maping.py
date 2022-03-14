@@ -1,6 +1,7 @@
 from settings import *
 from entity.doors import Doors
 
+
 def map(X, Y):
     y = []
     x = []
@@ -33,7 +34,7 @@ def scan(text_map):
     for j in range(r, len(f)):
         if f[j] == '@1\n':
             m = -1
-            for t in range(j+1, j+size[1]+1):
+            for t in range(j + 1, j + size[1] + 1):
                 m += 1
                 for i, char in enumerate(f[t]):
                     if char == '\n':
@@ -45,28 +46,36 @@ def scan(text_map):
                         end_pos = (i, m)
         if f[j] == '@2\n':
             m = -1
-            for t in range(j+1, j+size[1]+1):
+            for t in range(j + 1, j + size[1] + 1):
                 m += 1
                 for i, char in enumerate(f[t]):
                     if char == '\n':
                         continue
                     if char == 'D':
-                        doors.append(Doors((i,m), 0))
+                        doors.append(Doors((i, m), 0))
                         world_map2[i][m] = '0'
                         continue
                     if char == 'd':
-                        doors.append(Doors((i,m), 1))
+                        doors.append(Doors((i, m), 1))
                         world_map2[i][m] = '0'
                         continue
                     world_map2[i][m] = char
         if f[j] == '@3\n':
             m = -1
-            for t in range(j+1, j+size[1]+1):
+            for t in range(j + 1, j + size[1] + 1):
                 m += 1
                 for i, char in enumerate(f[t]):
                     if char == '\n':
                         continue
                     world_map3[i][m] = char
+        for door in doors:
+            x = door.x
+            y = door.y
+            if (world_map2[x + 1][y] == ('W' or 'w')) and (world_map2[x - 1][y] == ('W' or 'w')):
+                door.direction = 0
+            if (world_map2[x][y + 1] == ('W' or 'w')) and (world_map2[x][y - 1] == ('W' or 'w')):
+                door.direction = 1
+            door.directions()
 
     return (world_map1, world_map2, world_map3), spawn_pos, end_pos, jump, size, doors
 
