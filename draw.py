@@ -69,10 +69,12 @@ def draw(screen, world_map, size, player, cam_pos, textures, doors):
                 image = textures.get(door.image)
                 screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
         else:
-            if door.pos[1] < int(player.pos[1]/TILE_y):
+            if door.pos[1] <= int(player.pos[1]/TILE_y):
                 image = textures.get(door.image)
                 screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
-
+            if door.pos[1] < int(player.pos[1] / TILE_y):
+                image = textures.get(door.image2)
+                screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
 
     playerI = pygame.transform.scale(player.image, (int(TILE_y/2), int(TILE_x/2)))
     screen.blit(playerI, (standart_pos[0]- TILE_x/4, standart_pos[1]- TILE_y/2))
@@ -89,6 +91,9 @@ def draw(screen, world_map, size, player, cam_pos, textures, doors):
                 screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
         else:
             if door.pos[1] >= int(player.pos[1] / TILE_y):
+                image = textures.get(door.image2)
+                screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+            if door.pos[1] > int(player.pos[1] / TILE_y):
                 image = textures.get(door.image)
                 screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
 

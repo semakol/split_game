@@ -146,7 +146,9 @@ class Player():
                 & (y + TILE_y + self.size > self.y):
             self.end = 1
 
-    def door_open(self):
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_e]:
-            pass
+    def action(self, level):
+        x_p = self.x // TILE_x
+        y_p = self.y // TILE_y
+        for door in level[5]:
+            if x_p == door.pos[0] and y_p == door.pos[1]:
+                door.open_close()

@@ -33,7 +33,7 @@ def textures_load():
     for name in filenames:
         imagename = os.path.splitext(name)[0]
         img = pygame.image.load(os.path.join(path, name)).convert_alpha()
-        images[imagename] = pygame.transform.scale(img, (int(TILE_x),int(TILE_y*img.get_size()[1]/16)))
+        images[imagename] = pygame.transform.scale(img, (int(TILE_x),int(TILE_y*img.get_size()[1]/img.get_size()[0])))
     return images
 
 def resource_path(relative):
