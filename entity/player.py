@@ -164,8 +164,16 @@ class Player():
                 cube.up()
                 return
 
-    def cube_down(self):
+    def cube_down(self, level):
         x_p, y_p = self.p_pos()
+        for door in level[5]:
+            if x_p == door.pos[0] and y_p == door.pos[1]:
+                return
+        for cube in level[6]:
+            if x_p == cube.pos[0] and y_p == cube.pos[1]:
+                return
+        if level[0][1][int(x_p)][int(y_p)] == 'W' or level[0][1][int(x_p)][int(y_p)] == 'w':
+            return
         if self.with_cube != 0:
             self.with_cube.down(self.p_pos())
             self.with_cube = 0

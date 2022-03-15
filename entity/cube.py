@@ -15,6 +15,7 @@ class Cube():
 
     def up(self):
         self.in_player = 1
+        self.x , self.y = (-1,-1)
 
     def down(self, pos):
         self.in_player = 0

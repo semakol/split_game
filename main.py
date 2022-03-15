@@ -43,7 +43,7 @@ while running:
                     player.cube_up(level)
                     continue
                 else:
-                    player.cube_down()
+                    player.cube_down(level)
                     continue
 
     if player.end:
