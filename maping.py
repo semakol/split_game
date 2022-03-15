@@ -1,5 +1,6 @@
 from settings import *
 from entity.doors import Doors
+from entity.cube import Cube
 
 
 def map(X, Y):
@@ -27,6 +28,7 @@ def scan(text_map):
         if f[j] == '@s\n':
             r = j
             break
+    cubes = []
     doors = []
     world_map1 = map(size[0], size[1])
     world_map2 = map(size[0], size[1])
@@ -53,11 +55,15 @@ def scan(text_map):
                         continue
                     if char == 'D':
                         doors.append(Doors((i, m), 0))
-                        world_map2[i][m] = '0'
+                        world_map2[i][m] = ' '
                         continue
                     if char == 'd':
                         doors.append(Doors((i, m), 1))
-                        world_map2[i][m] = '0'
+                        world_map2[i][m] = ' '
+                        continue
+                    if char == 'K':
+                        cubes.append(Cube((i,m)))
+                        world_map2[i][m] = ' '
                         continue
                     world_map2[i][m] = char
         if f[j] == '@3\n':
@@ -77,7 +83,7 @@ def scan(text_map):
                 door.direction = 1
             door.directions()
 
-    return (world_map1, world_map2, world_map3), spawn_pos, end_pos, jump, size, doors
+    return (world_map1, world_map2, world_map3), spawn_pos, end_pos, jump, size, doors, cubes
 
 
 # def scan(text_map):

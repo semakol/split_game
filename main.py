@@ -38,6 +38,14 @@ while running:
                 player.tp()
             if event.key == pygame.K_e:
                 player.action(level)
+            if event.key == pygame.K_r:
+                if player.with_cube == 0:
+                    player.cube_up(level)
+                    continue
+                else:
+                    player.cube_down()
+                    continue
+
     if player.end:
         level_number += 1
         level = next_level(level_number)
@@ -53,7 +61,7 @@ while running:
 
     screen.fill(BLACK)
     # draw_map(screen, level[0], cam_pos, textures)
-    draw(screen, level[0], level[4], player, cam_pos, textures, level[5])
+    draw(screen, level[0], level[4], player, cam_pos, textures, level[5], level[6])
     pygame.draw.circle(screen, BLUE, standart_pos, 3 * SCALE_x)
     draw_text(screen, str(clock), 20, 0, 0 )
     draw_text(screen, str(time/80) + ' s', 20, 200, 0)

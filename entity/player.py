@@ -18,10 +18,14 @@ class Player():
         self.jump = level[3]
         self.textures = textures
         self.image = self.textures['player_down']
+        self.with_cube = 0
 
     @property
     def pos(self):
         return self.x, self.y
+
+    def p_pos(self):
+        return self.x // TILE_x, self.y // TILE_y
 
     def movement(self):
         if self.stuck == 1: return
@@ -147,8 +151,23 @@ class Player():
             self.end = 1
 
     def action(self, level):
-        x_p = self.x // TILE_x
-        y_p = self.y // TILE_y
+        x_p, y_p = self.p_pos()
         for door in level[5]:
             if x_p == door.pos[0] and y_p == door.pos[1]:
                 door.open_close()
+
+    def cube_up(self, level):
+        x_p , y_p = self.p_pos()
+        for cube in level[6]:
+            if x_p == cube.pos[0] and y_p == cube.pos[1]:
+                self.with_cube = cube
+                cube.up()
+                return
+
+    def cube_down(self):
+        x_p, y_p = self.p_pos()
+        if self.with_cube != 0:
+            self.with_cube.down(self.p_pos())
+            self.with_cube = 0
+
+
