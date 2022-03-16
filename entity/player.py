@@ -12,6 +12,7 @@ class Player():
         self.pos_face = standart_pos
         self.size = 5 * SCALE_x
         self.dimension = 1
+        self.direction = 'down'
         self.stuck = 0
         self.end_pos = level[2]
         self.end = 0
@@ -32,16 +33,36 @@ class Player():
         keys = pygame.key.get_pressed()
         if keys[pygame.K_w]:
             self.y -= self.speed
-            self.image = self.textures['player_up']
+            self.direction = 'up'
         if keys[pygame.K_s]:
             self.y += self.speed
-            self.image = self.textures['player_down']
+            self.direction = 'down'
         if keys[pygame.K_d]:
             self.x += self.speed
-            self.image = self.textures['player_right']
+            self.direction = 'right'
         if keys[pygame.K_a]:
             self.x -= self.speed
-            self.image = self.textures['player_left']
+            self.direction = 'left'
+
+    def images(self):
+        if self.with_cube:
+            if self.direction == 'up':
+                self.image = self.textures['player_up_c']
+            if self.direction == 'down':
+                self.image = self.textures['player_down_c']
+            if self.direction == 'left':
+                self.image = self.textures['player_left_c']
+            if self.direction == 'right':
+                self.image = self.textures['player_right_c']
+        else:
+            if self.direction == 'up':
+                self.image = self.textures['player_up']
+            if self.direction == 'down':
+                self.image = self.textures['player_down']
+            if self.direction == 'left':
+                self.image = self.textures['player_left']
+            if self.direction == 'right':
+                self.image = self.textures['player_right']
 
     def colision_player(self, level, size):
         for i in range(0, size[0]):
@@ -153,8 +174,9 @@ class Player():
     def action(self, level):
         x_p, y_p = self.p_pos()
         for door in level[5]:
-            if x_p == door.pos[0] and y_p == door.pos[1]:
-                door.open_close()
+            if door.can_open:
+                if x_p == door.pos[0] and y_p == door.pos[1]:
+                    door.open = True if door.open == False else False
 
     def cube_up(self, level):
         x_p , y_p = self.p_pos()
@@ -177,5 +199,6 @@ class Player():
         if self.with_cube != 0:
             self.with_cube.down(self.p_pos())
             self.with_cube = 0
+
 
 

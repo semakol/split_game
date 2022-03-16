@@ -55,13 +55,19 @@ while running:
 #        buffer = buffer_draw(level[4], level[0][0])
     mouse_pos = pygame.mouse.get_pos()
     player.movement()
+    player.images()
     cam_pos = player.pos
     player.colision_player(level, level[4])
     player.event()
+    event_check(level[8])
+    for button in level[7]:
+        button.on_off(level[6], player.p_pos())
+    for door in level[5]:
+        door.open_check()
 
     screen.fill(BLACK)
     # draw_map(screen, level[0], cam_pos, textures)
-    draw(screen, level[0], level[4], player, cam_pos, textures, level[5], level[6])
+    draw(screen, level[0], level[4], player, cam_pos, textures, level[5], level[6], level[7])
     pygame.draw.circle(screen, BLUE, standart_pos, 3 * SCALE_x)
     draw_text(screen, str(clock), 20, 0, 0 )
     draw_text(screen, str(time/80) + ' s', 20, 200, 0)

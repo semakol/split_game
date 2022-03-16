@@ -51,7 +51,7 @@ def buffer_draw(size, world_map):
     return second_plan, third_plan, first_plan
 
 
-def draw(screen, world_map, size, player, cam_pos, textures, doors, cubes):
+def draw(screen, world_map, size, player, cam_pos, textures, doors, cubes, buttons):
     a_pos = (-cam_pos[0] + Half_WIDHT, -cam_pos[1] + Half_HEIGHT)
     for i in range(0, size[0]):
         for t in range(0, size[1]):
@@ -76,19 +76,28 @@ def draw(screen, world_map, size, player, cam_pos, textures, doors, cubes):
                 image = textures.get(door.image2)
                 screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
 
+    for button in buttons:
+        if button.pos[1] * TILE_y < player.pos[1]:
+            image = textures.get(button.image)
+            screen.blit(image, (button.pos[0] * TILE_x + a_pos[0], button.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+
     for cube in cubes:
         if cube.in_player == 0:
             if cube.pos[1] * TILE_y < player.pos[1]:
                 image = textures.get(cube.image)
                 screen.blit(image, (cube.pos[0] * TILE_x + a_pos[0], cube.pos[1] * TILE_y + a_pos[1]-(TILE_y*0.5)))
 
-
     # //////////////////////////////////////////////////////// #
 
     playerI = pygame.transform.scale(player.image, (int(TILE_y/2), int(TILE_x/2)))
-    screen.blit(playerI, (standart_pos[0]- TILE_x/4, standart_pos[1]- TILE_y/2))
+    screen.blit(playerI, (standart_pos[0]- TILE_x/4, standart_pos[1]- TILE_y/2.3))
 
     # //////////////////////////////////////////////////////// #
+
+    for button in buttons:
+        if button.pos[1] * TILE_y >= player.pos[1]:
+            image = textures.get(button.image)
+            screen.blit(image, (button.pos[0] * TILE_x + a_pos[0], button.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
 
     for cube in cubes:
         if cube.in_player == 0:

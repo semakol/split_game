@@ -40,3 +40,10 @@ def resource_path(relative):
     if hasattr(sys, "_MEIPASS"):
         return os.path.join(sys._MEIPASS, relative)
     return os.path.join(relative)
+
+def event_check(event_link):
+    for event in event_link:
+        if event[1].active:
+            event[0].open = True
+        if not event[1].active:
+            event[0].open = False

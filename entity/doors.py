@@ -11,6 +11,8 @@ class Doors():
         self.image = 'door_g_close'
         self.image2 = 'air'
         self.open = False
+        self.event_id = 0
+        self.can_open = True
 
     def directions(self):
         if self.direction:
@@ -20,10 +22,25 @@ class Doors():
     def pos(self):
         return self.x, self.y
 
-    def open_close(self):
-        self.open = not self.open
-        if (self.image == 'door_g_open') or (self.image == 'door_g_close'):
-            self.image = 'door_g_open' if self.image == 'door_g_close' else 'door_g_close'
-        if (self.image == 'door_v_open_1') or (self.image == 'door_v_close'):
-            self.image = 'door_v_open_1' if self.image == 'door_v_close' else 'door_v_close'
-            self.image2 = 'door_v_open_2' if self.image2 == 'air' else 'air'
+    def open_check(self):
+        if self.open:
+            if self.direction == 1:
+                self.image = 'door_v_open_1'
+                self.image2 = 'door_v_open_2'
+            if self.direction == 0:
+                self.image = 'door_g_open'
+        if not self.open:
+            if self.direction == 1:
+                self.image = 'door_v_close'
+                self.image2 = 'air'
+            if self.direction == 0:
+                self.image = 'door_g_close'
+
+
+
+        # self.open = not self.open
+        # if (self.image == 'door_g_open') or (self.image == 'door_g_close'):
+        #     self.image = 'door_g_open' if self.image == 'door_g_close' else 'door_g_close'
+        # if (self.image == 'door_v_open_1') or (self.image == 'door_v_close'):
+        #     self.image = 'door_v_open_1' if self.image == 'door_v_close' else 'door_v_close'
+        #     self.image2 = 'door_v_open_2' if self.image2 == 'air' else 'air'

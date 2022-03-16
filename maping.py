@@ -1,6 +1,7 @@
 from settings import *
 from entity.doors import Doors
 from entity.cube import Cube
+from entity.button import Button
 
 
 def map(X, Y):
@@ -30,9 +31,11 @@ def scan(text_map):
             break
     cubes = []
     doors = []
+    buttons = []
     world_map1 = map(size[0], size[1])
     world_map2 = map(size[0], size[1])
     world_map3 = map(size[0], size[1])
+    events = []
     for j in range(r, len(f)):
         if f[j] == '@1\n':
             m = -1
@@ -65,6 +68,10 @@ def scan(text_map):
                         cubes.append(Cube((i,m)))
                         world_map2[i][m] = ' '
                         continue
+                    if char == 'B':
+                        buttons.append(Button((i,m)))
+                        world_map2[i][m] = ' '
+                        continue
                     world_map2[i][m] = char
         if f[j] == '@3\n':
             m = -1
@@ -73,7 +80,15 @@ def scan(text_map):
                 for i, char in enumerate(f[t]):
                     if char == '\n':
                         continue
-                    world_map3[i][m] = char
+        if f[j] == '@4\n':
+            m = -1
+            for t in range(j + 1, j + size[1] + 1):
+                m += 1
+                for i, char in enumerate(f[t]):
+                    if char == '\n':
+                        continue
+                    if not ((char == '0') or  (char == ' ')):
+                        events.append((i,m,int(char)))
         for door in doors:
             x = door.x
             y = door.y
@@ -82,8 +97,24 @@ def scan(text_map):
             if (world_map2[x][y + 1] == ('W' or 'w')) and (world_map2[x][y - 1] == ('W' or 'w')):
                 door.direction = 1
             door.directions()
+            for event in events:
+                if x == event[0] and y == event[1]:
+                    door.event_id = event[2]
+                    door.can_open = False
 
-    return (world_map1, world_map2, world_map3), spawn_pos, end_pos, jump, size, doors, cubes
+        for button in buttons:
+            for event in events:
+                if button.pos[0] == event[0] and button.pos[1] == event[1]:
+                    button.event_id = event[2]
+
+        event_link = []
+        for door in doors:
+            for button in buttons:
+                if door.event_id == button.event_id:
+                    event_link.append((door, button))
+
+
+    return (world_map1, world_map2, world_map3), spawn_pos, end_pos, jump, size, doors, cubes, buttons, event_link
 
 
 # def scan(text_map):
