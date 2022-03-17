@@ -1,5 +1,4 @@
 
-
 # Экран
 WIDTH = 1920
 HEIGHT = 1020
@@ -35,3 +34,5 @@ textures_id={
     '0': 'air',
     ' ': 'air'
 }
+
+POS_MENU = (Half_WIDHT-200*SCALE_x, 300*SCALE_y, 400*SCALE_x, HEIGHT-(200*2)*SCALE_y)

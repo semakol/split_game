@@ -129,9 +129,11 @@ def draw(screen, world_map, size, player, cam_pos, textures, doors, cubes, butto
             screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1] - (TILE_y * 0.5)))
 
 
-def draw_text(surf, text, size, x, y):
+def draw_text(surf, text, size, x1, y1, color, center_x=False, center_y=False):
     f1 = pygame.font.SysFont('arial', size)
-    text1 = f1.render(text, True, (250, 0, 0))
+    text1 = f1.render(text, True, color)
+    x = x1 - text1.get_size()[0]//2 if center_x else x1
+    y = y1 - text1.get_size()[1]//2 if center_y else y1
     surf.blit(text1, (x, y))
 
 
