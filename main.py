@@ -5,9 +5,7 @@ from maping import next_level
 from defs import *
 import pygame
 level_number = 1
-from menu import game_menu
 from menu_button import Menu_button
-from game import main_game
 
 
 # Создаем игру и окно
@@ -26,11 +24,17 @@ menu_buttons = [
     Menu_button((POS_MENU[0],POS_MENU[1]+POS_MENU[3]//4*3,POS_MENU[2],POS_MENU[3]//4-5*SCALE_y), 'exit', 'Выход')
 ]
 
+settings_buttons = [
+    Menu_button((POS_MENU[0],POS_MENU[1],POS_MENU[2],POS_MENU[3]//4-5*SCALE_y), 'start', 'Продолжить')
+]
+
 level = next_level(level_number)
 player = Player(level, textures)
 time = 0
+setting = False
 menu = True
 game = False
+level_menu = False
 
 running = True
 while running:
@@ -56,8 +60,32 @@ while running:
                     pygame.event.post(pygame.event.Event(256))
                 if menu_event == 'start':
                     game, menu = True, False
+                if menu_event == 'settings':
+                    menu, setting = False, True
+                if menu_event == 'new_game':
+                    menu, level_menu = False, True
         pygame.display.flip()
 
+    #
+
+    if setting:
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    setting, menu = False, True
+        screen.fill((100, 100, 100))
+        for settings_button in settings_buttons:
+            settings_button.draw(screen)
+            setting_event = settings_button.click(mouse_pos, mouse_click)
+        pygame.display.flip()
+
+    #
+
+    if level_menu:
+        screen.fill((100, 100, 100))
+        for menu_button in menu_buttons:
+            pass
+        pygame.display.flip()
     #
 
     if game:
@@ -76,6 +104,8 @@ while running:
                     else:
                         player.cube_down(level)
                         continue
+                if event.key == pygame.K_ESCAPE:
+                    game, menu = False, True
 
         if player.end:
             level_number += 1
@@ -97,9 +127,8 @@ while running:
 
         screen.fill(BLACK)
         draw(screen, level[0], level[4], player, cam_pos, textures, level[5], level[6], level[7])
-        pygame.draw.circle(screen, BLUE, standart_pos, 3 * SCALE_x)
         draw_text(screen, str(clock), 20, 0, 0, RED)
         draw_text(screen, str(time / 80) + ' s', 20, 200, 0, RED)
         pygame.draw.circle(screen, BLUE, mouse_pos, 3 * SCALE_x)
         pygame.display.flip()
-
+pygame.quit()
