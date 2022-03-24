@@ -22,7 +22,7 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
-textures_id={
+textures_id = {
     'W': 'Wall',
     '.': 'floor',
     'E': 'floor_end',

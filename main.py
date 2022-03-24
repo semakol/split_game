@@ -1,12 +1,11 @@
-
 from entity.player import Player
 from draw import *
 from maping import next_level
 from defs import *
 import pygame
+
 level_number = 1
 from menu_button import Menu_button
-
 
 # Создаем игру и окно
 pygame.init()
@@ -18,15 +17,29 @@ textures = textures_load()
 keys = pygame.key.get_pressed()
 
 menu_buttons = [
-    Menu_button((POS_MENU[0],POS_MENU[1],POS_MENU[2],POS_MENU[3]//4-5*SCALE_y), 'start', 'Продолжить'),
-    Menu_button((POS_MENU[0],POS_MENU[1]+POS_MENU[3]//4,POS_MENU[2],POS_MENU[3]//4-5*SCALE_y), 'new_game', 'Новая игра'),
-    Menu_button((POS_MENU[0],POS_MENU[1]+POS_MENU[3]//2,POS_MENU[2],POS_MENU[3]//4-5*SCALE_y), 'settings', 'Настройки'),
-    Menu_button((POS_MENU[0],POS_MENU[1]+POS_MENU[3]//4*3,POS_MENU[2],POS_MENU[3]//4-5*SCALE_y), 'exit', 'Выход')
+    Menu_button((POS_MENU[0], POS_MENU[1], POS_MENU[2], POS_MENU[3] // 4 - 5 * SCALE_y), 'start', 'Продолжить'),
+    Menu_button((POS_MENU[0], POS_MENU[1] + POS_MENU[3] // 4, POS_MENU[2], POS_MENU[3] // 4 - 5 * SCALE_y), 'levels',
+                'Уровни'),
+    Menu_button((POS_MENU[0], POS_MENU[1] + POS_MENU[3] // 2, POS_MENU[2], POS_MENU[3] // 4 - 5 * SCALE_y), 'settings',
+                'Настройки'),
+    Menu_button((POS_MENU[0], POS_MENU[1] + POS_MENU[3] // 4 * 3, POS_MENU[2], POS_MENU[3] // 4 - 5 * SCALE_y), 'exit',
+                'Выход')
 ]
 
 settings_buttons = [
-    Menu_button((POS_MENU[0],POS_MENU[1],POS_MENU[2],POS_MENU[3]//4-5*SCALE_y), 'start', 'Продолжить')
+    Menu_button((POS_MENU[0], POS_MENU[1], POS_MENU[2], POS_MENU[3] // 4 - 5 * SCALE_y), 'start', 'Продолжить')
 ]
+
+count_level = count_level()
+
+level_buttons = []
+
+for t in range(0, count_level // 5 + 1):
+    for i in range(0, 5):
+        if count_level > (t * 5 + i):
+            level_buttons.append(
+                Menu_button(((280 + 144 * i) * SCALE_x, (0 + 144 * t) * SCALE_y, 144 * SCALE_x, 144 * SCALE_y),
+                            i + 1 + 5 * t, f'{i + 1 + 5 * t}'))
 
 level = next_level(level_number)
 player = Player(level, textures)
@@ -62,7 +75,7 @@ while running:
                     game, menu = True, False
                 if menu_event == 'settings':
                     menu, setting = False, True
-                if menu_event == 'new_game':
+                if menu_event == 'levels':
                     menu, level_menu = False, True
         pygame.display.flip()
 
@@ -83,8 +96,16 @@ while running:
 
     if level_menu:
         screen.fill((100, 100, 100))
-        for menu_button in menu_buttons:
-            pass
+        for level_button in level_buttons:
+            level_button.draw(screen)
+            level_event = level_button.click(mouse_pos, mouse_click)
+            if level_event != 'none':
+                level = next_level(level_button.event)
+                level_number = level_button.event
+                player.__init__(level, textures)
+                player.end = 0
+                time = 0
+                level_menu, game = False, True
         pygame.display.flip()
     #
 
@@ -129,6 +150,7 @@ while running:
         draw(screen, level[0], level[4], player, cam_pos, textures, level[5], level[6], level[7])
         draw_text(screen, str(clock), 20, 0, 0, RED)
         draw_text(screen, str(time / 80) + ' s', 20, 200, 0, RED)
+        draw_text(screen, f'level: {level_number}', 20, 300, 0, RED)
         pygame.draw.circle(screen, BLUE, mouse_pos, 3 * SCALE_x)
         pygame.display.flip()
 pygame.quit()

@@ -12,7 +12,7 @@ class Menu_button():
 
     def draw(self, screen):
         pygame.draw.rect(screen, self.color, (self.rectangle[0], self.rectangle[1], self.rectangle[2], self.rectangle[3]), self.border)
-        x = Half_WIDHT
+        x = self.rectangle[0] + self.rectangle[2] // 2
         y = self.rectangle[1] + self.rectangle[3] // 2
         draw_text(screen, self.title, int(40 * SCALE_x), x, y, BLUE, True, True)
 
@@ -27,6 +27,7 @@ class Menu_button():
                 return self.event
             else:
                 self.color = BLACK
+                return 'none'
         else:
             self.border = 3
             self.color = BLACK

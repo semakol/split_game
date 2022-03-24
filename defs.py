@@ -47,3 +47,12 @@ def event_check(event_link):
             event[0].open = True
         if not event[1].active:
             event[0].open = False
+
+def count_level():
+    files = os.listdir(path="levels")
+    files_on = []
+    for i in range(0, len(files)):
+        if 'level' in files[i]:
+            files_on.append(files[i])
+    return len(files_on)
+

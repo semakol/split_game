@@ -133,6 +133,7 @@ def scan(text_map):
 
 def next_level(number):
     text_level = open(f'levels/level_{number}', 'r')
+
     s = scan(text_level)
     text_level.close()
     return s
