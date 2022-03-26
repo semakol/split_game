@@ -136,6 +136,10 @@ def draw_text(surf, text, size, x1, y1, color, center_x=False, center_y=False):
     y = y1 - text1.get_size()[1]//2 if center_y else y1
     surf.blit(text1, (x, y))
 
+def draw_reload(surf, time_reload, tp_reload_time):
+    if time_reload <= tp_reload_time * FPS:
+        pygame.draw.rect(surf, GREY, (540 * SCALE_x, 450 * SCALE_y, 200 * SCALE_x, 5 * SCALE_y))
+        pygame.draw.rect(surf, WHITE, (540 * SCALE_x, 450 * SCALE_y, int(200 * SCALE_x * time_reload / (tp_reload_time * FPS)), 5 * SCALE_y))
 
 def draw_bullet(surf, list):
     for l in list:

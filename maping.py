@@ -80,6 +80,7 @@ def scan(text_map):
                 for i, char in enumerate(f[t]):
                     if char == '\n':
                         continue
+                    world_map3[i][m] = char
         if f[j] == '@4\n':
             m = -1
             for t in range(j + 1, j + size[1] + 1):

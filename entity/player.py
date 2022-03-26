@@ -20,13 +20,16 @@ class Player():
         self.textures = textures
         self.image = self.textures['player_down']
         self.with_cube = 0
+        self.tp_on = True
+        self.tp_reload_time = 0.8
+        self.time_reload = 0
 
     @property
     def pos(self):
         return self.x, self.y
 
     def p_pos(self):
-        return self.x // TILE_x, self.y // TILE_y
+        return int(self.x // TILE_x), int(self.y // TILE_y)
 
     def movement(self):
         if self.stuck == 1: return
@@ -153,22 +156,18 @@ class Player():
 
     def tp(self):
         # /tp sema_kol school
-        if self.dimension == 1:
-            self.x += self.jump * TILE_x
-            self.dimension = 2
-            return
-        if self.dimension == 2:
-            self.x -= self.jump * TILE_x
-            self.dimension = 1
-            return
+        if self.tp_on:
+            if self.dimension == 1:
+                self.x += self.jump * TILE_x
+                self.dimension = 2
+                return
+            if self.dimension == 2:
+                self.x -= self.jump * TILE_x
+                self.dimension = 1
+                return
 
     def event(self):
-        x = self.end_pos[0] * TILE_x
-        y = self.end_pos[1] * TILE_y
-        if (x - self.size < self.x) \
-                & (x + TILE_x + self.size > self.x) \
-                & (y - self.size < self.y) \
-                & (y + TILE_y + self.size > self.y):
+        if self.p_pos() == self.end_pos:
             self.end = 1
 
     def action(self, level):
@@ -200,5 +199,10 @@ class Player():
             self.with_cube.down(self.p_pos())
             self.with_cube = 0
 
+    def tp_reload(self):
+        self.time_reload += 1
+        if not self.tp_on:
+            if self.time_reload >= self.tp_reload_time * FPS:
+                self.tp_on = True
 
 

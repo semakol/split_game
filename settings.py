@@ -17,6 +17,7 @@ standart_speed = 2
 
 # Задаем цвета
 WHITE = (255, 255, 255)
+GREY = (100, 100, 100)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
@@ -32,7 +33,8 @@ textures_id = {
     'e': 'floor_end_old',
     's': 'floor_start_old',
     '0': 'air',
-    ' ': 'air'
+    ' ': 'air',
+    'L': 'lives'
 }
 
 POS_MENU = (Half_WIDHT-200*SCALE_x, 300*SCALE_y, 400*SCALE_x, HEIGHT-(200*2)*SCALE_y)
