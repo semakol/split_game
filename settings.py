@@ -16,7 +16,7 @@ standart_pos = (Half_WIDHT, Half_HEIGHT)
 standart_speed = 2
 
 # Задаем цвета
-WHITE = (255, 255, 255)
+WHITE = (250, 250, 250)
 GREY = (100, 100, 100)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)

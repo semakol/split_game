@@ -33,7 +33,7 @@ def textures_load():
     for name in filenames:
         imagename = os.path.splitext(name)[0]
         img = pygame.image.load(os.path.join(path, name)).convert_alpha()
-        images[imagename] = pygame.transform.scale(img, (int(TILE_x),int(TILE_y*img.get_size()[1]/img.get_size()[0])))
+        images[imagename] = pygame.transform.scale(img, (int(TILE_x*img.get_size()[0]/16),int(TILE_y*img.get_size()[1]/16)))
     return images
 
 def resource_path(relative):
@@ -56,3 +56,19 @@ def count_level():
             files_on.append(files[i])
     return len(files_on)
 
+def chop_frames(image):
+    height, width = image.get_size()
+    h, w = TILE_y, TILE_x
+
+    row = 0
+    frames = []
+    # итерация по строкам
+    for j in range(0,int(height / h)):
+        # производим итерацию по элементам строки
+        for i in range(0,int(width / w)):
+            # добавляем  в список отдельные кадры
+            frames.append(image.subsurface(pygame.Rect(i * w, row, w, h)))
+        # смещаемся на высоту кадра, т.е. переходим на другую строку
+        row += int(h)
+
+    return frames

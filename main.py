@@ -13,7 +13,6 @@ pygame.display.set_caption("My Game")
 clock = pygame.time.Clock()
 textures = textures_load()
 level_number = 1
-
 scripts = [0,0,0,0,0,0]
 
 menu_buttons = [
@@ -44,6 +43,7 @@ for t in range(0, count_level // 5 + 1):
 level = next_level(level_number)
 player = Player(level, textures)
 time = 0
+timer_16 = 0
 setting = False
 menu = True
 game = False
@@ -116,6 +116,8 @@ while running:
 
     if game:
         time += 1
+        timer_16 += 1
+        timer_16 = 0 if timer_16 >= 16 * FPS else timer_16
         # Ввод процесса (события)
         for event in events:
             if event.type == pygame.KEYDOWN:
@@ -145,13 +147,13 @@ while running:
             player.tp_on = False
         mouse_pos = pygame.mouse.get_pos()
         player.movement()
-        player.images()
+        player.images(timer_16)
         cam_pos = player.pos
         player.colision_player(level, level[4])
         player.event()
         event_check(level[8])
         for button in level[7]:
-            button.on_off(level[6], player.p_pos())
+            button.on_off(level[6], player.p_pos)
         for door in level[5]:
             door.open_check()
 
@@ -161,12 +163,12 @@ while running:
         draw_reload(screen, player.time_reload, player.tp_reload_time)
         if level_number == 1:
             if not scripts[0]:
-                if player.p_pos() == (5, 5):
-                    player.stuck = 1
+                if player.p_pos == (5, 5):
+                    player.stuck = True
                     player.tp_on = False
                     draw_text(screen, 'Нажми "Пробел" чтобы продолжить.', 20, standart_pos[0], standart_pos[1], GREEN, True, True)
                     if keys[pygame.K_SPACE]:
-                        player.stuck = 0
+                        player.stuck = False
                         player.tp_on = True
                         scripts[0] = 1
 
@@ -179,7 +181,7 @@ while running:
         elif level_number == 5:
             pass
         draw_text(screen, str(clock), 20, 0, 0, RED)
-        draw_text(screen, str(time / 80) + ' s', 20, 200, 0, RED)
+        draw_text(screen, str(time / FPS) + ' s', 20, 200, 0, RED)
         draw_text(screen, f'level: {level_number}', 20, 300, 0, RED)
         pygame.draw.circle(screen, BLUE, mouse_pos, 3 * SCALE_x)
         pygame.display.flip()

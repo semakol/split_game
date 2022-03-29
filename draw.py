@@ -89,8 +89,8 @@ def draw(screen, world_map, size, player, cam_pos, textures, doors, cubes, butto
 
     # //////////////////////////////////////////////////////// #
 
-    playerI = pygame.transform.scale(player.image, (int(TILE_y/2), int(TILE_x/2)))
-    screen.blit(playerI, (standart_pos[0]- TILE_x/4, standart_pos[1]- TILE_y/2.3))
+    playerI = pygame.transform.scale(player.image, (int(TILE_y/1.5), int(TILE_x/1.5)))
+    screen.blit(playerI, (standart_pos[0]- TILE_x/1.4/2, standart_pos[1] - TILE_y/1.7))
 
     # //////////////////////////////////////////////////////// #
 
