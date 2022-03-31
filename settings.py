@@ -34,7 +34,11 @@ textures_id = {
     's': 'floor_start_old',
     '0': 'air',
     ' ': 'air',
-    'L': 'lives'
+    'L': 'lives',
+    'P': 'portal_ram',
+    '$': 'spawn_pod',
+    'G': 'green_place',
+    'T': 'glass_wall'
 }
 
 POS_MENU = (Half_WIDHT-200*SCALE_x, 300*SCALE_y, 400*SCALE_x, HEIGHT-(200*2)*SCALE_y)

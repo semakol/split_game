@@ -57,7 +57,7 @@ class Player():
     def images(self, time):
         if self.in_walk and (not self.stuck):
             if self.with_cube:
-                timer = (time * 3 // FPS) % 4
+                timer = (time * 4 // FPS) % 4
                 if self.direction == 'up':
                     if timer == 0:
                         self.image = self.frames[36]
@@ -95,7 +95,7 @@ class Player():
                     else:
                         self.image = self.frames[29]
             else:
-                timer = (time * 3 // FPS) % 4
+                timer = (time * 4 // FPS) % 4
                 if self.direction == 'up':
                     if timer == 0:
                         self.image = self.frames[31]

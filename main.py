@@ -4,6 +4,7 @@ from maping import next_level
 from defs import *
 import pygame
 from menu_button import Menu_button
+from scripts import level_scripts
 
 # Создаем игру и окно
 pygame.init()
@@ -13,7 +14,7 @@ pygame.display.set_caption("My Game")
 clock = pygame.time.Clock()
 textures = textures_load()
 level_number = 1
-scripts = [0,0,0,0,0,0]
+scripts = [0]
 
 menu_buttons = [
     Menu_button((POS_MENU[0], POS_MENU[1], POS_MENU[2], POS_MENU[3] // 4 - 5 * SCALE_y), 'start', 'Продолжить'),
@@ -48,6 +49,8 @@ setting = False
 menu = True
 game = False
 level_menu = False
+k_space = [0]
+tp_script = [True]
 
 running = True
 while running:
@@ -110,6 +113,9 @@ while running:
                 player.__init__(level, textures)
                 player.end = 0
                 time = 0
+                scripts.clear()
+                scripts.append(0)
+                tp_script[0] = True
                 level_menu, game = False, True
         pygame.display.flip()
     #
@@ -118,14 +124,17 @@ while running:
         time += 1
         timer_16 += 1
         timer_16 = 0 if timer_16 >= 16 * FPS else timer_16
-        # Ввод процесса (события)
         for event in events:
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_q:
+                    if tp_script[0]:
+                        if player.tp_on:
+                            player.time_reload = 0
+                            player.tp()
+                            player.tp_on = False
                 if event.key == pygame.K_SPACE:
-                    if player.tp_on:
-                        player.time_reload = 0
-                        player.tp()
-                        player.tp_on = False
+                    k_space[0] = 1
+
                 if event.key == pygame.K_e:
                     player.action(level)
                 if event.key == pygame.K_r:
@@ -145,6 +154,9 @@ while running:
             player.end = 0
             time = 0
             player.tp_on = False
+            scripts.clear()
+            scripts.append(0)
+            tp_script[0] = True
         mouse_pos = pygame.mouse.get_pos()
         player.movement()
         player.images(timer_16)
@@ -161,25 +173,7 @@ while running:
         player.tp_reload()
         draw(screen, level[0], level[4], player, cam_pos, textures, level[5], level[6], level[7])
         draw_reload(screen, player.time_reload, player.tp_reload_time)
-        if level_number == 1:
-            if not scripts[0]:
-                if player.p_pos == (5, 5):
-                    player.stuck = True
-                    player.tp_on = False
-                    draw_text(screen, 'Нажми "Пробел" чтобы продолжить.', 20, standart_pos[0], standart_pos[1], GREEN, True, True)
-                    if keys[pygame.K_SPACE]:
-                        player.stuck = False
-                        player.tp_on = True
-                        scripts[0] = 1
-
-        elif level_number == 2:
-            pass
-        elif level_number == 3:
-            pass
-        elif level_number == 4:
-            pass
-        elif level_number == 5:
-            pass
+        level_scripts(level_number, player, screen, level, scripts, k_space, tp_script)
         draw_text(screen, str(clock), 20, 0, 0, RED)
         draw_text(screen, str(time / FPS) + ' s', 20, 200, 0, RED)
         draw_text(screen, f'level: {level_number}', 20, 300, 0, RED)
