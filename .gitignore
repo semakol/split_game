@@ -136,5 +136,4 @@ dmypy.json
 cython_debug/
 .idea/
 
-
-build/
+/build/
