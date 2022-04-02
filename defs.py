@@ -47,9 +47,9 @@ def resource_path(relative):
 def event_check(event_link):
     for event in event_link:
         if event[1].active:
-            event[0].open = True
+            event[0].on = True
         if not event[1].active:
-            event[0].open = False
+            event[0].on = False
 
 
 def count_level():
@@ -93,3 +93,9 @@ def message(screen, text):
     pygame.draw.rect(screen, WHITE, (
         x - 8 * SCALE_x, y - 8 * SCALE_y, text1.get_size()[0] + 16 * SCALE_y, text1.get_size()[1] + 16 * SCALE_y), 1)
     screen.blit(text2, (x + text1.get_size()[0] - text2.get_size()[0], y + text1.get_size()[1] + text2.get_size()[1]))
+
+def update(level):
+    for laser in level[9]:
+        laser.stop = False
+        laser.lasers.clear()
+        laser.first = True

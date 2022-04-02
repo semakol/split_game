@@ -1,5 +1,5 @@
 import pygame
-from defs import chop_frames
+from defs import chop_frames, update
 from settings import *
 
 
@@ -157,33 +157,32 @@ class Player():
             for t in range(0, size[1]):
                 x = i * TILE_x
                 y = t * TILE_y
-                for world in level[0]:
-                    if (world[i][t] == 'W') | (world[i][t] == 'w'):
-                        if (x < self.x) \
-                                & (x + TILE_x > self.x) \
-                                & (y < self.y) \
-                                & (y + TILE_y > self.y):
-                            self.stuck = True
-                            return
-                        else:
-                            self.stuck = False
-                            if (x - self.size < self.x) \
-                                    & (x + TILE_x + self.size > self.x) \
-                                    & (y - self.size < self.y) \
-                                    & (y + TILE_y + self.size > self.y):
-                                if not ((x < self.x) & (x + TILE_x > self.x)):
-                                    if x + TILE_x / 2 > self.x:
-                                        self.x -= self.speed
-                                    if x + TILE_x / 2 < self.x:
-                                        self.x += self.speed
+                if (level[0][1][i][t] == 'W') | (level[0][1][i][t] == 'w') | (level[0][0][i][t] == ' ') | (level[0][1][i][t] == 'Z'):
+                    if (x < self.x) \
+                            & (x + TILE_x > self.x) \
+                            & (y < self.y) \
+                            & (y + TILE_y > self.y):
+                        self.stuck = True
+                        return
+                    else:
+                        self.stuck = False
+                        if (x - self.size < self.x) \
+                                & (x + TILE_x + self.size > self.x) \
+                                & (y - self.size < self.y) \
+                                & (y + TILE_y + self.size > self.y):
+                            if not ((x < self.x) & (x + TILE_x > self.x)):
+                                if x + TILE_x / 2 > self.x:
+                                    self.x -= self.speed
+                                if x + TILE_x / 2 < self.x:
+                                    self.x += self.speed
 
-                                elif not ((y < self.y) & (y + TILE_y > self.y)):
-                                    if y + TILE_y / 2 > self.y:
-                                        self.y -= self.speed
-                                    if y + TILE_y / 2 < self.y:
-                                        self.y += self.speed
+                            elif not ((y < self.y) & (y + TILE_y > self.y)):
+                                if y + TILE_y / 2 > self.y:
+                                    self.y -= self.speed
+                                if y + TILE_y / 2 < self.y:
+                                    self.y += self.speed
         for door in level[5]:
-            if not door.open:
+            if not door.on:
                 if door.direction == 0:
                     x = door.pos[0] * TILE_x
                     y = door.pos[1] * TILE_y + (TILE_y // 2.4)
@@ -191,7 +190,7 @@ class Player():
                             & (x + TILE_x > self.x) \
                             & (y < self.y) \
                             & ((y + TILE_y // 5) > self.y):
-                        self.stuck = False
+                        self.stuck = True
                         return
                     else:
                         self.stuck = False
@@ -237,6 +236,60 @@ class Player():
                                     self.y -= self.speed
                                 if y + TILE_y // 5 / 2 < self.y:
                                     self.y += self.speed
+        for laser in level[9]:
+            if (laser.direction == 'right') | (laser.direction == 'left'):
+                x = laser.pos[0] * TILE_x
+                y = laser.pos[1] * TILE_y + (TILE_y // 1.7)
+                if (x < self.x) \
+                        & (x + TILE_x > self.x) \
+                        & (y < self.y) \
+                        & ((y + TILE_y // 5) > self.y):
+                    self.stuck = True
+                    return
+                else:
+                    self.stuck = False
+                    if (x - self.size < self.x) \
+                            & (x + TILE_x + self.size > self.x) \
+                            & (y - self.size < self.y) \
+                            & (y + (TILE_y // 5) + self.size > self.y):
+                        if not ((x < self.x) & (x + TILE_x > self.x)):
+                            if x + TILE_x / 2 > self.x:
+                                self.x -= self.speed
+                            if x + TILE_x / 2 < self.x:
+                                self.x += self.speed
+
+                        elif not ((y < self.y) & (y + (TILE_y // 5) > self.y)):
+                            if y + (TILE_y // 5) / 2 > self.y:
+                                self.y -= self.speed
+                            if y + (TILE_y // 5) / 2 < self.y:
+                                self.y += self.speed
+
+            if (laser.direction == 'up') | (laser.direction == 'down'):
+                x = laser.pos[0] * TILE_x + (TILE_x // 2.4)
+                y = laser.pos[1] * TILE_y
+                if (x < self.x) \
+                        & ((x + TILE_x // 5) > self.x) \
+                        & (y < self.y) \
+                        & (y + TILE_y > self.y):
+                    self.stuck = True
+                    return
+                else:
+                    self.stuck = False
+                    if (x - self.size < self.x) \
+                            & (x + TILE_x // 5 + self.size > self.x) \
+                            & (y - self.size < self.y) \
+                            & (y + TILE_y + self.size > self.y):
+                        if not ((x < self.x) & (x + TILE_x // 5 > self.x)):
+                            if x + TILE_x // 5 / 2 > self.x:
+                                self.x -= self.speed
+                            if x + TILE_x // 5 / 2 < self.x:
+                                self.x += self.speed
+
+                        elif not ((y < self.y) & (y + TILE_y > self.y)):
+                            if y + TILE_y // 5 / 2 > self.y:
+                                self.y -= self.speed
+                            if y + TILE_y // 5 / 2 < self.y:
+                                self.y += self.speed
 
 
     def tp(self):
@@ -260,7 +313,9 @@ class Player():
         for door in level[5]:
             if door.can_open:
                 if x_p == door.pos[0] and y_p == door.pos[1]:
-                    door.open = True if door.open == False else False
+                    door.on = True if door.on == False else False
+
+
 
     def cube_up(self, level):
         x_p , y_p = self.p_pos
@@ -277,6 +332,9 @@ class Player():
                 return
         for cube in level[6]:
             if x_p == cube.pos[0] and y_p == cube.pos[1]:
+                return
+        for laser in level[9]:
+            if x_p == laser.pos[0] and y_p == laser.pos[1]:
                 return
         if level[0][1][int(x_p)][int(y_p)] == 'W' or level[0][1][int(x_p)][int(y_p)] == 'w':
             return

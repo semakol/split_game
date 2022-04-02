@@ -4,10 +4,11 @@ from settings import *
 
 class Cube():
 
-    def __init__(self, pos):
+    def __init__(self, pos, laser=False):
         self.x , self.y = pos
         self.in_player = 0
-        self.image = 'cube'
+        self.laser = laser
+        self.image = 'cube' if not laser else 'laser_cube'
 
     @property
     def pos(self):

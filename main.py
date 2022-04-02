@@ -17,12 +17,10 @@ level_number = 1
 scripts = [0]
 
 menu_buttons = [
-    Menu_button((POS_MENU[0], POS_MENU[1], POS_MENU[2], POS_MENU[3] // 4 - 5 * SCALE_y), 'start', 'Продолжить'),
-    Menu_button((POS_MENU[0], POS_MENU[1] + POS_MENU[3] // 4, POS_MENU[2], POS_MENU[3] // 4 - 5 * SCALE_y), 'levels',
+    Menu_button((POS_MENU[0], POS_MENU[1], POS_MENU[2], POS_MENU[3] // 3 - 5 * SCALE_y), 'start', 'Продолжить'),
+    Menu_button((POS_MENU[0], POS_MENU[1] + POS_MENU[3] // 3, POS_MENU[2], POS_MENU[3] // 3 - 5 * SCALE_y), 'levels',
                 'Уровни'),
-    Menu_button((POS_MENU[0], POS_MENU[1] + POS_MENU[3] // 2, POS_MENU[2], POS_MENU[3] // 4 - 5 * SCALE_y), 'settings',
-                'Настройки'),
-    Menu_button((POS_MENU[0], POS_MENU[1] + POS_MENU[3] // 4 * 3, POS_MENU[2], POS_MENU[3] // 4 - 5 * SCALE_y), 'exit',
+    Menu_button((POS_MENU[0], POS_MENU[1] + POS_MENU[3] // 3 * 2, POS_MENU[2], POS_MENU[3] // 3 - 5 * SCALE_y), 'exit',
                 'Выход')
 ]
 
@@ -137,7 +135,9 @@ while running:
 
                 if event.key == pygame.K_e:
                     player.action(level)
+                    update(level)
                 if event.key == pygame.K_r:
+                    update(level)
                     if player.with_cube == 0:
                         player.cube_up(level)
                         continue
@@ -168,10 +168,12 @@ while running:
             button.on_off(level[6], player.p_pos)
         for door in level[5]:
             door.open_check()
+        for laser in level[9]:
+            laser.laser_on(level)
 
         screen.fill(BLACK)
         player.tp_reload()
-        draw(screen, level[0], level[4], player, cam_pos, textures, level[5], level[6], level[7])
+        draw(screen, level[0], level[4], player, cam_pos, textures, level[5], level[6], level[7], level[9])
         draw_reload(screen, player.time_reload, player.tp_reload_time)
         level_scripts(level_number, player, screen, level, scripts, k_space, tp_script)
         draw_text(screen, str(clock), 20, 0, 0, RED)

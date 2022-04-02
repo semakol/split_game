@@ -49,7 +49,7 @@ def level_scripts(level_number, player, screen, level, scripts, k_space, tp_scri
                 if k_space[0]:
                     for door in level[5]:
                         if door.pos == (6, 6) or door.pos == (9, 6):
-                            door.open = True
+                            door.on = True
                     player.stuck = False
                     scripts[4] = 1
                     k_space[0] = 0
@@ -85,7 +85,17 @@ def level_scripts(level_number, player, screen, level, scripts, k_space, tp_scri
                     k_space[0] = 0
                     scripts.append(0)
     elif level_number == 2:
-        pass
+        if not scripts[0]:
+            if player.p_pos == (5, 5):
+                message(screen, 'Открывать дверь на "E"')
+                player.stuck = True
+                player.tp_on = False
+                tp_script[0] = False
+                if k_space[0]:
+                    player.stuck = False
+                    scripts[0] = 1
+                    k_space[0] = 0
+                    scripts.append(0)
     elif level_number == 3:
         pass
     elif level_number == 4:

@@ -10,7 +10,7 @@ class Doors():
         self.direction = 0
         self.image = 'door_g_close'
         self.image2 = 'air'
-        self.open = False
+        self.on = False
         self.event_id = 0
         self.can_open = True
 
@@ -23,13 +23,13 @@ class Doors():
         return self.x, self.y
 
     def open_check(self):
-        if self.open:
+        if self.on:
             if self.direction == 1:
                 self.image = 'door_v_open_1'
                 self.image2 = 'door_v_open_2'
             if self.direction == 0:
                 self.image = 'door_g_open'
-        if not self.open:
+        if not self.on:
             if self.direction == 1:
                 self.image = 'door_v_close'
                 self.image2 = 'air'

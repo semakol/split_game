@@ -2,6 +2,7 @@ from settings import *
 from entity.doors import Doors
 from entity.cube import Cube
 from entity.button import Button
+from entity.laser import Laser
 
 
 def map(X, Y):
@@ -32,6 +33,7 @@ def scan(text_map):
     cubes = []
     doors = []
     buttons = []
+    lasers = []
     world_map1 = map(size[0], size[1])
     world_map2 = map(size[0], size[1])
     world_map3 = map(size[0], size[1])
@@ -55,6 +57,10 @@ def scan(text_map):
                 m += 1
                 for i, char in enumerate(f[t]):
                     if char == '\n':
+                        continue
+                    if char == 'L':
+                        lasers.append(Laser((i,m)))
+                        world_map2[i][m] = ' '
                         continue
                     if char == 'D':
                         doors.append(Doors((i, m), 0))
@@ -108,14 +114,36 @@ def scan(text_map):
                 if button.pos[0] == event[0] and button.pos[1] == event[1]:
                     button.event_id = event[2]
 
+        for laser in lasers:
+            for event in events:
+                if laser.pos[0] == event[0] and laser.pos[1] == event[1]:
+                    laser.event_id = event[2]
+
         event_link = []
         for door in doors:
             for button in buttons:
                 if door.event_id == button.event_id:
                     event_link.append((door, button))
 
+        for laser in lasers:
+            for button in buttons:
+                if laser.event_id == button.event_id:
+                    event_link.append((laser, button))
 
-    return (world_map1, world_map2, world_map3), spawn_pos, end_pos, jump, size, doors, cubes, buttons, event_link
+        for laser in lasers:
+            if world_map2[laser.x + 1][laser.y] == 'Z':
+                laser.direction = 'left'
+            elif world_map2[laser.x - 1][laser.y] == 'Z':
+                laser.direction = 'right'
+            elif world_map2[laser.x][laser.y + 1] == 'Z':
+                laser.direction = 'up'
+            elif world_map2[laser.x][laser.y - 1] == 'Z':
+                laser.direction = 'down'
+            laser.images()
+
+
+
+    return (world_map1, world_map2, world_map3), spawn_pos, end_pos, jump, size, doors, cubes, buttons, event_link, lasers
 
 
 # def scan(text_map):

@@ -38,7 +38,8 @@ textures_id = {
     'P': 'portal_ram',
     '$': 'spawn_pod',
     'G': 'green_place',
-    'T': 'glass_wall'
+    'T': 'glass_wall',
+    'Z': 'electrick'
 }
 
-POS_MENU = (Half_WIDHT-200*SCALE_x, 300*SCALE_y, 400*SCALE_x, HEIGHT-(200*2)*SCALE_y)
+POS_MENU = (Half_WIDHT-200*SCALE_x, 380*SCALE_y, 400*SCALE_x, HEIGHT-(220*2)*SCALE_y)
