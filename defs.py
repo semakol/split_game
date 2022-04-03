@@ -44,12 +44,14 @@ def resource_path(relative):
     return os.path.join(relative)
 
 
-def event_check(event_link):
+def event_check(event_link, level):
     for event in event_link:
         if event[1].active:
             event[0].on = True
+            update(level)
         if not event[1].active:
             event[0].on = False
+
 
 
 def count_level():
@@ -99,3 +101,5 @@ def update(level):
         laser.stop = False
         laser.lasers.clear()
         laser.first = True
+    for receiver in level[11]:
+        receiver.stop = False

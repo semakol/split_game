@@ -51,7 +51,7 @@ def buffer_draw(size, world_map):
     return second_plan, third_plan, first_plan
 
 def floor_blit(world_map1, textures):
-    floor_screen = pygame.surface.Surface(size=(len(world_map1) * TILE_x,len(world_map1[0]) * TILE_y))
+    floor_screen = pygame.Surface((len(world_map1) * TILE_x,len(world_map1[0]) * TILE_y))
     for i in range(0, len(world_map1)):
         for t in range(0, len(world_map1[0])):
             image = textures.get(textures_id[str(world_map1[i][t])])
@@ -165,8 +165,6 @@ def draw_2(screen, world_map, size, player, cam_pos, textures, doors, cubes, but
 
     for t in range(0, size[1]):
         for i in range(0, size[0]):
-            image = textures.get(textures_id[str(world_map[1][i][t])])
-            screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1] - (TILE_y * 0.5)))
 
             for button in buttons:
                 if button.pos == (i,t):
@@ -175,17 +173,17 @@ def draw_2(screen, world_map, size, player, cam_pos, textures, doors, cubes, but
                                 (button.pos[0] * TILE_x + a_pos[0], button.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
 
             for laser in lasers:
-                if laser.pos == (i,t):
-                    image = textures.get(laser.image)
-                    screen.blit(image,
-                                (laser.pos[0] * TILE_x + a_pos[0], laser.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
-
-            for laser in lasers:
                 for laser_line in laser.lasers:
                     if laser_line[0] == (i,t):
                         image = textures.get(laser.laser_image[laser_line[1]])
                         screen.blit(image, (
                         laser_line[0][0] * TILE_x + a_pos[0], laser_line[0][1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+
+            for laser in lasers:
+                if laser.pos == (i,t):
+                    image = textures.get(laser.image)
+                    screen.blit(image,
+                                (laser.pos[0] * TILE_x + a_pos[0], laser.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
 
             for cube in cubes:
                 if cube.in_player == 0:
@@ -232,8 +230,13 @@ def draw_2(screen, world_map, size, player, cam_pos, textures, doors, cubes, but
                             screen.blit(image,
                                         (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
 
+            image = textures.get(textures_id[str(world_map[1][i][t])])
+            screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1] - (TILE_y * 0.5)))
 
-
+    for t in range(0, size[1]):
+        for i in range(0, size[0]):
+            image = textures.get(textures_id[str(world_map[2][i][t])])
+            screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1] - (TILE_y * 0.5)))
 
 
 def draw_text(surf, text, size, x1, y1, color, center_x=False, center_y=False):

@@ -163,13 +163,15 @@ while running:
         cam_pos = player.pos
         player.colision_player(level, level[4])
         player.event()
-        event_check(level[8])
+        event_check(level[8], level)
         for button in level[7]:
             button.on_off(level[6], player.p_pos)
         for door in level[5]:
             door.open_check()
         for laser in level[9]:
             laser.laser_on(level)
+            for receiver in level[11]:
+                receiver.check_laser(laser.lasers)
 
         screen.fill(BLACK)
         player.tp_reload()

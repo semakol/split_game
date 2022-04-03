@@ -37,7 +37,7 @@ class Laser():
                 while True:
                     if self.first:
                         if self.direction == 'up':
-                            if level[0][1][self.x][self.y - 1] == 'W':
+                            if level[0][1][self.x][self.y - 1] in stop_blocks:
                                 return
                             for door in level[5]:
                                 if not door.on:
@@ -53,7 +53,7 @@ class Laser():
                             self.lasers.append(((self.x, self.y - 1), 0))
                             self.lasers.append(((self.x, self.y - 1), 1))
                         elif self.direction == 'down':
-                            if level[0][1][self.x][self.y + 1] == 'W':
+                            if level[0][1][self.x][self.y + 1] in stop_blocks:
                                 return
                             for door in level[5]:
                                 if not door.on:
@@ -69,7 +69,7 @@ class Laser():
                             self.lasers.append(((self.x, self.y + 1), 0))
                             self.lasers.append(((self.x, self.y + 1), 1))
                         elif self.direction == 'left':
-                            if level[0][1][self.x - 1][self.y] == 'W':
+                            if level[0][1][self.x - 1][self.y] in stop_blocks:
                                 return
                             for door in level[5]:
                                 if not door.on:
@@ -85,7 +85,7 @@ class Laser():
                             self.lasers.append(((self.x - 1, self.y), 0))
                             self.lasers.append(((self.x - 1, self.y), 1))
                         elif self.direction == 'right':
-                            if level[0][1][self.x + 1][self.y] == 'W':
+                            if level[0][1][self.x + 1][self.y] in stop_blocks:
                                 return
                             for door in level[5]:
                                 if not door.on:
@@ -105,7 +105,7 @@ class Laser():
                         x = self.lasers[len(self.lasers) - 1][0][0]
                         y = self.lasers[len(self.lasers) - 1][0][1]
                         if self.direction == 'up':
-                            if (level[0][1][x][y - 1] == 'W') | (level[0][1][x][y - 1] == 'Z'):
+                            if level[0][1][x][y - 1] in stop_blocks:
                                 return
                             for door in level[5]:
                                 if not door.on:
@@ -121,7 +121,7 @@ class Laser():
                             self.lasers.append(((x, y - 1), 0))
                             self.lasers.append(((x, y - 1), 1))
                         elif self.direction == 'down':
-                            if (level[0][1][x][y + 1] == 'W') | (level[0][1][x][y + 1] == 'Z'):
+                            if level[0][1][x][y + 1] in stop_blocks:
                                 return
                             for door in level[5]:
                                 if not door.on:
@@ -137,7 +137,7 @@ class Laser():
                             self.lasers.append(((x, y + 1), 0))
                             self.lasers.append(((x, y + 1), 1))
                         elif self.direction == 'left':
-                            if (level[0][1][x - 1][y] == 'W') | (level[0][1][x - 1][y] == 'Z'):
+                            if level[0][1][x - 1][y] in stop_blocks:
                                 return
                             for door in level[5]:
                                 if not door.on:
@@ -153,7 +153,7 @@ class Laser():
                             self.lasers.append(((x - 1, y), 0))
                             self.lasers.append(((x - 1, y), 1))
                         elif self.direction == 'right':
-                            if (level[0][1][x + 1][y] == 'W') | (level[0][1][x + 1][y] == 'Z'):
+                            if level[0][1][x + 1][y] in stop_blocks:
                                 return
                             for door in level[5]:
                                 if not door.on:

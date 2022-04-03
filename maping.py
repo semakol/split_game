@@ -3,6 +3,7 @@ from entity.doors import Doors
 from entity.cube import Cube
 from entity.button import Button
 from entity.laser import Laser
+from entity.receiver import Receiver
 from draw import floor_blit
 from settings import textures_id
 from defs import textures_load
@@ -36,6 +37,7 @@ def scan(text_map, textures):
     doors = []
     buttons = []
     lasers = []
+    receivers = []
     world_map1 = map(size[0], size[1])
     world_map2 = map(size[0], size[1])
     world_map3 = map(size[0], size[1])
@@ -80,6 +82,8 @@ def scan(text_map, textures):
                         buttons.append(Button((i,m)))
                         world_map2[i][m] = ' '
                         continue
+                    if char == 'R':
+                        receivers.append(Receiver((i,m)))
                     world_map2[i][m] = char
         if f[j] == '@3\n':
             m = -1
@@ -121,16 +125,28 @@ def scan(text_map, textures):
                 if laser.pos[0] == event[0] and laser.pos[1] == event[1]:
                     laser.event_id = event[2]
 
+        for receiver in receivers:
+            for event in events:
+                if receiver.pos[0] == event[0] and receiver.pos[1] == event[1]:
+                    receiver.event_id = event[2]
+
         event_link = []
         for door in doors:
             for button in buttons:
                 if door.event_id == button.event_id:
                     event_link.append((door, button))
+            for receiver in receivers:
+                if door.event_id == receiver.event_id:
+                    event_link.append((door, receiver))
 
         for laser in lasers:
             for button in buttons:
                 if laser.event_id == button.event_id:
                     event_link.append((laser, button))
+            for receiver in receivers:
+                if laser.event_id == receiver.event_id:
+                    event_link.append((laser, receiver))
+
 
         for laser in lasers:
             if world_map2[laser.x + 1][laser.y] == 'Z':
@@ -143,10 +159,11 @@ def scan(text_map, textures):
                 laser.direction = 'down'
             laser.images()
 
-        floor_screen = floor_blit(world_map1, textures)
+    floor_screen = floor_blit(world_map1, textures)
 
 
-    return (world_map1, world_map2, world_map3), spawn_pos, end_pos, jump, size, doors, cubes, buttons, event_link, lasers, floor_screen
+    return (world_map1, world_map2, world_map3), spawn_pos, end_pos, jump, size, doors, cubes, buttons, event_link,\
+           lasers, floor_screen, receivers
 
 
 # def scan(text_map):

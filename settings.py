@@ -39,7 +39,10 @@ textures_id = {
     '$': 'spawn_pod',
     'G': 'green_place',
     'T': 'glass_wall',
-    'Z': 'electrick'
+    'Z': 'electrick',
+    'R': 'receiver'
 }
+
+stop_blocks = ['W', 'w', 'Z', 'R']
 
 POS_MENU = (Half_WIDHT-200*SCALE_x, 380*SCALE_y, 400*SCALE_x, HEIGHT-(220*2)*SCALE_y)
