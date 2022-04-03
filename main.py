@@ -39,7 +39,7 @@ for t in range(0, count_level // 5 + 1):
                 Menu_button(((280 + 144 * i) * SCALE_x, (0 + 144 * t) * SCALE_y, 144 * SCALE_x, 144 * SCALE_y),
                             i + 1 + 5 * t, f'{i + 1 + 5 * t}'))
 
-level = next_level(level_number)
+level = next_level(level_number, textures)
 player = Player(level, textures)
 time = 0
 timer_16 = 0
@@ -106,7 +106,7 @@ while running:
             level_button.draw(screen)
             level_event = level_button.click(mouse_pos, mouse_click)
             if level_event != 'none':
-                level = next_level(level_button.event)
+                level = next_level(level_button.event, textures)
                 level_number = level_button.event
                 player.__init__(level, textures)
                 player.end = 0
@@ -149,7 +149,7 @@ while running:
 
         if player.end:
             level_number += 1
-            level = next_level(level_number)
+            level = next_level(level_number, textures)
             player.__init__(level, textures)
             player.end = 0
             time = 0
@@ -173,7 +173,7 @@ while running:
 
         screen.fill(BLACK)
         player.tp_reload()
-        draw(screen, level[0], level[4], player, cam_pos, textures, level[5], level[6], level[7], level[9])
+        draw_2(screen, level[0], level[4], player, cam_pos, textures, level[5], level[6], level[7], level[9], level[10])
         draw_reload(screen, player.time_reload, player.tp_reload_time)
         level_scripts(level_number, player, screen, level, scripts, k_space, tp_script)
         draw_text(screen, str(clock), 20, 0, 0, RED)

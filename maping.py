@@ -3,7 +3,9 @@ from entity.doors import Doors
 from entity.cube import Cube
 from entity.button import Button
 from entity.laser import Laser
-
+from draw import floor_blit
+from settings import textures_id
+from defs import textures_load
 
 def map(X, Y):
     y = []
@@ -15,7 +17,7 @@ def map(X, Y):
     return x
 
 
-def scan(text_map):
+def scan(text_map, textures):
     m = -1
     spawn_pos = 0, 0
     end_pos = 0, 0
@@ -141,9 +143,10 @@ def scan(text_map):
                 laser.direction = 'down'
             laser.images()
 
+        floor_screen = floor_blit(world_map1, textures)
 
 
-    return (world_map1, world_map2, world_map3), spawn_pos, end_pos, jump, size, doors, cubes, buttons, event_link, lasers
+    return (world_map1, world_map2, world_map3), spawn_pos, end_pos, jump, size, doors, cubes, buttons, event_link, lasers, floor_screen
 
 
 # def scan(text_map):
@@ -160,9 +163,9 @@ def scan(text_map):
 #             if char == '\n':
 
 
-def next_level(number):
+def next_level(number, textures):
     text_level = open(f'levels/level_{number}', 'r')
 
-    s = scan(text_level)
+    s = scan(text_level, textures)
     text_level.close()
     return s

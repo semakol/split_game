@@ -10,7 +10,7 @@ class Player():
         self.x, self.y = level[1]
         self.speed = standart_speed * SCALE_x
         self.pos_face = standart_pos
-        self.size = 5 * SCALE_x
+        self.size = 10 * SCALE_x
         self.dimension = 1
         self.direction = 'down'
         self.stuck = False

@@ -41,10 +41,15 @@ class Laser():
                                 return
                             for door in level[5]:
                                 if not door.on:
-                                    if door.pos == (self.x + 1,self.y):
-                                        self.lasers.append(((self.x + 1, self.y), 0))
+                                    if door.pos == (self.x,self.y - 1):
+                                        self.lasers.append(((self.x, self.y - 1), 0))
                                         self.stop = True
                                         return
+                            for cube in level[6]:
+                                if cube.pos == (self.x, self.y - 1):
+                                    self.lasers.append(((self.x, self.y - 1), 0))
+                                    self.stop = True
+                                    return
                             self.lasers.append(((self.x, self.y - 1), 0))
                             self.lasers.append(((self.x, self.y - 1), 1))
                         elif self.direction == 'down':
@@ -53,9 +58,14 @@ class Laser():
                             for door in level[5]:
                                 if not door.on:
                                     if door.pos == (self.x ,self.y + 1):
-                                        self.lasers.append(((self.x + 1, self.y), 0))
+                                        self.lasers.append(((self.x , self.y + 1), 1))
                                         self.stop = True
                                         return
+                            for cube in level[6]:
+                                if cube.pos == (self.x, self.y + 1):
+                                    self.lasers.append(((self.x, self.y + 1), 1))
+                                    self.stop = True
+                                    return
                             self.lasers.append(((self.x, self.y + 1), 0))
                             self.lasers.append(((self.x, self.y + 1), 1))
                         elif self.direction == 'left':
@@ -67,11 +77,27 @@ class Laser():
                                         self.lasers.append(((self.x - 1, y), 1))
                                         self.stop = True
                                         return
+                            for cube in level[6]:
+                                if cube.pos == (self.x - 1, self.y):
+                                    self.lasers.append(((self.x - 1, self.y), 1))
+                                    self.stop = True
+                                    return
                             self.lasers.append(((self.x - 1, self.y), 0))
                             self.lasers.append(((self.x - 1, self.y), 1))
                         elif self.direction == 'right':
                             if level[0][1][self.x + 1][self.y] == 'W':
                                 return
+                            for door in level[5]:
+                                if not door.on:
+                                    if door.pos == (self.x + 1,self.y):
+                                        self.lasers.append(((self.x + 1, y), 0))
+                                        self.stop = True
+                                        return
+                            for cube in level[6]:
+                                if cube.pos == (self.x + 1, self.y):
+                                    self.lasers.append(((self.x + 1, self.y), 0))
+                                    self.stop = True
+                                    return
                             self.lasers.append(((self.x + 1, self.y), 0))
                             self.lasers.append(((self.x + 1, self.y), 1))
                         self.first = False
@@ -83,10 +109,15 @@ class Laser():
                                 return
                             for door in level[5]:
                                 if not door.on:
-                                    if door.pos == (x,y - 1):
-                                        self.lasers.append(((x, y - 1), 0))
+                                    if door.pos == (self.x, self.y - 1):
+                                        self.lasers.append(((self.x, y - 1), 0))
                                         self.stop = True
                                         return
+                            for cube in level[6]:
+                                if cube.pos == (self.x, self.y - 1):
+                                    self.lasers.append(((self.x, self.y - 1), 0))
+                                    self.stop = True
+                                    return
                             self.lasers.append(((x, y - 1), 0))
                             self.lasers.append(((x, y - 1), 1))
                         elif self.direction == 'down':
@@ -98,6 +129,11 @@ class Laser():
                                         self.lasers.append(((x, y + 1), 1))
                                         self.stop = True
                                         return
+                            for cube in level[6]:
+                                if cube.pos == (x, y + 1):
+                                    self.lasers.append(((x, y + 1), 1))
+                                    self.stop = True
+                                    return
                             self.lasers.append(((x, y + 1), 0))
                             self.lasers.append(((x, y + 1), 1))
                         elif self.direction == 'left':
@@ -109,6 +145,11 @@ class Laser():
                                         self.lasers.append(((x - 1, y), 1))
                                         self.stop = True
                                         return
+                            for cube in level[6]:
+                                if cube.pos == (x - 1, y):
+                                    self.lasers.append(((x - 1, y), 1))
+                                    self.stop = True
+                                    return
                             self.lasers.append(((x - 1, y), 0))
                             self.lasers.append(((x - 1, y), 1))
                         elif self.direction == 'right':
@@ -120,6 +161,11 @@ class Laser():
                                         self.lasers.append(((x + 1, y), 0))
                                         self.stop = True
                                         return
+                            for cube in level[6]:
+                                if cube.pos == (x + 1, y):
+                                    self.lasers.append(((x + 1, y), 0))
+                                    self.stop = True
+                                    return
                             self.lasers.append(((x + 1, y), 0))
                             self.lasers.append(((x + 1, y), 1))
         else:

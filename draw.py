@@ -50,106 +50,190 @@ def buffer_draw(size, world_map):
                         second_plan.append([l[1], [i, t]])
     return second_plan, third_plan, first_plan
 
+def floor_blit(world_map1, textures):
+    floor_screen = pygame.surface.Surface(size=(len(world_map1) * TILE_x,len(world_map1[0]) * TILE_y))
+    for i in range(0, len(world_map1)):
+        for t in range(0, len(world_map1[0])):
+            image = textures.get(textures_id[str(world_map1[i][t])])
+            floor_screen.blit(image, (i * TILE_x, t * TILE_y))
+    return floor_screen
 
-def draw(screen, world_map, size, player, cam_pos, textures, doors, cubes, buttons, lasers):
+
+# def draw(screen, world_map, size, player, cam_pos, textures, doors, cubes, buttons, lasers):
+#     a_pos = (-cam_pos[0] + Half_WIDHT, -cam_pos[1] + Half_HEIGHT)
+#
+#
+#
+#
+#     for button in buttons:
+#         if button.pos[1] * TILE_y < player.pos[1]:
+#             image = textures.get(button.image)
+#             screen.blit(image, (button.pos[0] * TILE_x + a_pos[0], button.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+#
+#     for laser in lasers:
+#         if laser.pos[1]*TILE_y < player.pos[1]:
+#             image = textures.get(laser.image)
+#             screen.blit(image, (laser.pos[0] * TILE_x + a_pos[0], laser.pos[1] * TILE_y + a_pos[1]-(TILE_y*0.5)))
+#
+#     for laser in lasers:
+#         for laser_line in laser.lasers:
+#             if laser_line[0][1] * TILE_y < player.pos[1]:
+#                 image = textures.get(laser.laser_image[laser_line[1]])
+#                 screen.blit(image, (
+#                 laser_line[0][0] * TILE_x + a_pos[0], laser_line[0][1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+#
+#     for cube in cubes:
+#         if cube.in_player == 0:
+#             if cube.pos[1] * TILE_y + TILE_y / 2 < player.pos[1]:
+#                 image = textures.get(cube.image)
+#                 screen.blit(image, (cube.pos[0] * TILE_x + a_pos[0], cube.pos[1] * TILE_y + a_pos[1]-(TILE_y*0.5)))
+#
+#     for door in doors:
+#         if door.direction == 0:
+#             if door.pos[1]*TILE_y+(TILE_y//1.5) < player.pos[1]:
+#                 image = textures.get(door.image)
+#                 screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+#         else:
+#             if door.pos[1] <= int(player.p_pos[1]):
+#                 image = textures.get(door.image)
+#                 screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+#             if door.pos[1] < int(player.p_pos[1]):
+#                 image = textures.get(door.image2)
+#                 screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+#
+#     for i in range(0, size[0]):
+#         for t in range(0, int(player.p_pos[1])):
+#             image = textures.get(textures_id[str(world_map[1][i][t])])
+#             screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+#
+#     # //////////////////////////////////////////////////////// #
+#
+#     playerI = pygame.transform.scale(player.image, (int(TILE_y/1.5), int(TILE_x/1.5)))
+#     screen.blit(playerI, (standart_pos[0]- TILE_x/1.4/2, standart_pos[1] - TILE_y/1.7))
+#
+#     # //////////////////////////////////////////////////////// #
+#
+#     for button in buttons:
+#         if button.pos[1] * TILE_y >= player.pos[1]:
+#             image = textures.get(button.image)
+#             screen.blit(image, (button.pos[0] * TILE_x + a_pos[0], button.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+#
+#     for laser in lasers:
+#         if laser.pos[1] * TILE_y >= player.pos[1]:
+#             image = textures.get(laser.image)
+#             screen.blit(image, (laser.pos[0] * TILE_x + a_pos[0], laser.pos[1] * TILE_y + a_pos[1]-(TILE_y*0.5)))
+#
+#     for laser in lasers:
+#         for laser_line in laser.lasers:
+#             if laser_line[0][1] * TILE_y >= player.pos[1]:
+#                 image = textures.get(laser.laser_image[laser_line[1]])
+#                 screen.blit(image, (laser_line[0][0] * TILE_x + a_pos[0], laser_line[0][1] * TILE_y + a_pos[1]-(TILE_y*0.5)))
+#
+#     for cube in cubes:
+#         if cube.in_player == 0:
+#             if cube.pos[1] * TILE_y + TILE_y / 2 >= player.pos[1]:
+#                 image = textures.get(cube.image)
+#                 screen.blit(image, (cube.pos[0] * TILE_x + a_pos[0], cube.pos[1] * TILE_y + a_pos[1]-(TILE_y*0.5)))
+#
+#     for door in doors:
+#         if door.direction == 0:
+#             if door.pos[1] * TILE_y + (TILE_y // 1.5) >= player.pos[1]:
+#                 image = textures.get(door.image)
+#                 screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+#         else:
+#             if door.pos[1] >= int(player.pos[1] / TILE_y):
+#                 image = textures.get(door.image2)
+#                 screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+#             if door.pos[1] > int(player.pos[1] / TILE_y):
+#                 image = textures.get(door.image)
+#                 screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+#
+#     for i in range(0, size[0]):
+#         for t in range(int(player.p_pos[1]), size[1]):
+#             image = textures.get(textures_id[str(world_map[1][i][t])])
+#             screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+#
+#     for i in range(0, size[0]):
+#         for t in range(0, size[1]):
+#             image = textures.get(textures_id[str(world_map[2][i][t])])
+#             screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+
+def draw_2(screen, world_map, size, player, cam_pos, textures, doors, cubes, buttons, lasers, floor_screen):
     a_pos = (-cam_pos[0] + Half_WIDHT, -cam_pos[1] + Half_HEIGHT)
-    for i in range(0, size[0]):
-        for t in range(0, size[1]):
-            image = textures.get(textures_id[str(world_map[0][i][t])])
-            screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1]))
 
-    for i in range(0, size[0]):
-        for t in range(0, int(player.pos[1]/TILE_y)):
-            image = textures.get(textures_id[str(world_map[1][i][t])])
-            screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1]-(TILE_y*0.5)))
+    screen.blit(floor_screen, a_pos)
 
-    for button in buttons:
-        if button.pos[1] * TILE_y < player.pos[1]:
-            image = textures.get(button.image)
-            screen.blit(image, (button.pos[0] * TILE_x + a_pos[0], button.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
-
-    for laser in lasers:
-        if laser.pos[1]*TILE_y+(TILE_y//1.5) < player.pos[1]:
-            image = textures.get(laser.image)
-            screen.blit(image, (laser.pos[0] * TILE_x + a_pos[0], laser.pos[1] * TILE_y + a_pos[1]-(TILE_y*0.5)))
-
-    for laser in lasers:
-        for laser_line in laser.lasers:
-            if laser_line[0][1] * TILE_y < player.pos[1]:
-                image = textures.get(laser.laser_image[laser_line[1]])
-                screen.blit(image, (
-                laser_line[0][0] * TILE_x + a_pos[0], laser_line[0][1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
-
-    for cube in cubes:
-        if cube.in_player == 0:
-            if cube.pos[1] * TILE_y < player.pos[1]:
-                image = textures.get(cube.image)
-                screen.blit(image, (cube.pos[0] * TILE_x + a_pos[0], cube.pos[1] * TILE_y + a_pos[1]-(TILE_y*0.5)))
-
-    for door in doors:
-        if door.direction == 0:
-            if door.pos[1]*TILE_y+(TILE_y//1.5) < player.pos[1]:
-                image = textures.get(door.image)
-                screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
-        else:
-            if door.pos[1] <= int(player.pos[1]/TILE_y):
-                image = textures.get(door.image)
-                screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
-            if door.pos[1] < int(player.pos[1] / TILE_y):
-                image = textures.get(door.image2)
-                screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
-
-    # //////////////////////////////////////////////////////// #
-
-    playerI = pygame.transform.scale(player.image, (int(TILE_y/1.5), int(TILE_x/1.5)))
-    screen.blit(playerI, (standart_pos[0]- TILE_x/1.4/2, standart_pos[1] - TILE_y/1.7))
-
-    # //////////////////////////////////////////////////////// #
-
-    for button in buttons:
-        if button.pos[1] * TILE_y >= player.pos[1]:
-            image = textures.get(button.image)
-            screen.blit(image, (button.pos[0] * TILE_x + a_pos[0], button.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
-
-    for laser in lasers:
-        for laser_line in laser.lasers:
-            if laser_line[0][1] * TILE_y >= player.pos[1]:
-                image = textures.get(laser.laser_image[laser_line[1]])
-                screen.blit(image, (laser_line[0][0] * TILE_x + a_pos[0], laser_line[0][1] * TILE_y + a_pos[1]-(TILE_y*0.5)))
-
-    for laser in lasers:
-        if laser.pos[1] * TILE_y + (TILE_y // 1.5) >= player.pos[1]:
-            image = textures.get(laser.image)
-            screen.blit(image, (laser.pos[0] * TILE_x + a_pos[0], laser.pos[1] * TILE_y + a_pos[1]-(TILE_y*0.5)))
-
-    for cube in cubes:
-        if cube.in_player == 0:
-            if cube.pos[1] * TILE_y >= player.pos[1]:
-                image = textures.get(cube.image)
-                screen.blit(image, (cube.pos[0] * TILE_x + a_pos[0], cube.pos[1] * TILE_y + a_pos[1]-(TILE_y*0.5)))
-
-    for i in range(0, size[0]):
-        for t in range(int(player.pos[1]/TILE_y), size[1]):
+    for t in range(0, size[1]):
+        for i in range(0, size[0]):
             image = textures.get(textures_id[str(world_map[1][i][t])])
             screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1] - (TILE_y * 0.5)))
 
-    for door in doors:
-        if door.direction == 0:
-            if door.pos[1] * TILE_y + (TILE_y // 1.5) >= player.pos[1]:
-                image = textures.get(door.image)
-                screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
-        else:
-            if door.pos[1] >= int(player.pos[1] / TILE_y):
-                image = textures.get(door.image2)
-                screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
-            if door.pos[1] > int(player.pos[1] / TILE_y):
-                image = textures.get(door.image)
-                screen.blit(image, (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+            for button in buttons:
+                if button.pos == (i,t):
+                    image = textures.get(button.image)
+                    screen.blit(image,
+                                (button.pos[0] * TILE_x + a_pos[0], button.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
 
-    for i in range(0, size[0]):
-        for t in range(0, size[1]):
-            image = textures.get(textures_id[str(world_map[2][i][t])])
-            screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+            for laser in lasers:
+                if laser.pos == (i,t):
+                    image = textures.get(laser.image)
+                    screen.blit(image,
+                                (laser.pos[0] * TILE_x + a_pos[0], laser.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+
+            for laser in lasers:
+                for laser_line in laser.lasers:
+                    if laser_line[0] == (i,t):
+                        image = textures.get(laser.laser_image[laser_line[1]])
+                        screen.blit(image, (
+                        laser_line[0][0] * TILE_x + a_pos[0], laser_line[0][1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+
+            for cube in cubes:
+                if cube.in_player == 0:
+                    if cube.pos == (i,t):
+                        image = textures.get(cube.image)
+                        screen.blit(image,
+                                    (cube.pos[0] * TILE_x + a_pos[0], cube.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+
+            for door in doors:
+                if door.pos == (i,t):
+                    if door.direction == 0:
+                        if door.pos[1] * TILE_y + (TILE_y // 1.5) < player.pos[1]:
+                            image = textures.get(door.image)
+                            screen.blit(image,
+                                        (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+                    else:
+                        if door.pos[1] <= int(player.p_pos[1]):
+                            image = textures.get(door.image)
+                            screen.blit(image,
+                                        (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+                        if door.pos[1] < int(player.p_pos[1]):
+                            image = textures.get(door.image2)
+                            screen.blit(image,
+                                        (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+
+            if player.p_pos == (i,t):
+                playerI = pygame.transform.scale(player.image, (int(TILE_y / 1.5), int(TILE_x / 1.5)))
+                screen.blit(playerI, (standart_pos[0] - TILE_x / 1.4 / 2, standart_pos[1] - TILE_y / 1.7))
+
+            for door in doors:
+                if door.pos == (i, t):
+                    if door.direction == 0:
+                        if door.pos[1] * TILE_y + (TILE_y // 1.5) >= player.pos[1]:
+                            image = textures.get(door.image)
+                            screen.blit(image,
+                                        (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+                    else:
+                        if door.pos[1] >= int(player.pos[1] / TILE_y):
+                            image = textures.get(door.image2)
+                            screen.blit(image,
+                                        (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+                        if door.pos[1] > int(player.pos[1] / TILE_y):
+                            image = textures.get(door.image)
+                            screen.blit(image,
+                                        (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+
+
+
 
 
 def draw_text(surf, text, size, x1, y1, color, center_x=False, center_y=False):
