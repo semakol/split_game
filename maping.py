@@ -78,6 +78,14 @@ def scan(text_map, textures):
                         cubes.append(Cube((i,m)))
                         world_map2[i][m] = ' '
                         continue
+                    if char == 'E':
+                        cubes.append(Cube((i,m), laser=True))
+                        world_map2[i][m] = ' '
+                        continue
+                    if char == 'Q':
+                        cubes.append(Cube((i,m), quant=True, laser=True))
+                        world_map2[i][m] = ' '
+                        continue
                     if char == 'B':
                         buttons.append(Button((i,m)))
                         world_map2[i][m] = ' '

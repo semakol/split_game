@@ -16,6 +16,8 @@ class Receiver():
         if self.stop:
             return
         else:
+            if lasers == []:
+                self.active = False
             for laser in lasers:
                 if (laser[0] == (self.x + 1, self.y)) and (laser[1] == 0):
                     self.active = True
@@ -31,3 +33,4 @@ class Receiver():
                     self.stop = True
                 else:
                     self.active = False
+                    self.stop = True

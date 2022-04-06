@@ -57,91 +57,96 @@ class Player():
     def images(self, time):
         if self.in_walk and (not self.stuck):
             if self.with_cube:
-                timer = (time * 4 // FPS) % 4
-                if self.direction == 'up':
-                    if timer == 0:
-                        self.image = self.frames[36]
-                    elif timer == 1:
-                        self.image = self.frames[37]
-                    elif timer == 2:
-                        self.image = self.frames[38]
+                if self.with_cube.laser:
+                    if self.with_cube.quant:
+                        timer = (time * 4 // FPS) % 4
+                        if self.direction == 'up':
+                            self.image = self.frames[111 + timer]
+                        if self.direction == 'down':
+                            self.image = self.frames[81 + timer]
+                        if self.direction == 'left':
+                            self.image = self.frames[91 + timer]
+                        if self.direction == 'right':
+                            self.image = self.frames[101 + timer]
                     else:
-                        self.image = self.frames[39]
-                if self.direction == 'down':
-                    if timer == 0:
-                        self.image = self.frames[6]
-                    elif timer == 1:
-                        self.image = self.frames[7]
-                    elif timer == 2:
-                        self.image = self.frames[8]
-                    else:
-                        self.image = self.frames[9]
-                if self.direction == 'left':
-                    if timer == 0:
-                        self.image = self.frames[16]
-                    elif timer == 1:
-                        self.image = self.frames[17]
-                    elif timer == 2:
-                        self.image = self.frames[18]
-                    else:
-                        self.image = self.frames[19]
-                if self.direction == 'right':
-                    if timer == 0:
-                        self.image = self.frames[26]
-                    elif timer == 1:
-                        self.image = self.frames[27]
-                    elif timer == 2:
-                        self.image = self.frames[28]
-                    else:
-                        self.image = self.frames[29]
+                        timer = (time * 4 // FPS) % 4
+                        if self.direction == 'up':
+                            self.image = self.frames[71 + timer]
+                        if self.direction == 'down':
+                            self.image = self.frames[41 + timer]
+                        if self.direction == 'left':
+                            self.image = self.frames[51 + timer]
+                        if self.direction == 'right':
+                            self.image = self.frames[61 + timer]
+                elif self.with_cube.quant:
+                    timer = (time * 4 // FPS) % 4
+                    if self.direction == 'up':
+                        self.image = self.frames[76 + timer]
+                    if self.direction == 'down':
+                        self.image = self.frames[46 + timer]
+                    if self.direction == 'left':
+                        self.image = self.frames[56 + timer]
+                    if self.direction == 'right':
+                        self.image = self.frames[66 + timer]
+                else:
+                    timer = (time * 4 // FPS) % 4
+                    if self.direction == 'up':
+                        self.image = self.frames[36 + timer]
+                    if self.direction == 'down':
+                        self.image = self.frames[6 + timer]
+                    if self.direction == 'left':
+                        self.image = self.frames[16 + timer]
+                    if self.direction == 'right':
+                        self.image = self.frames[26 + timer]
             else:
                 timer = (time * 4 // FPS) % 4
                 if self.direction == 'up':
-                    if timer == 0:
-                        self.image = self.frames[31]
-                    elif timer == 1:
-                        self.image = self.frames[32]
-                    elif timer == 2:
-                        self.image = self.frames[33]
-                    else:
-                        self.image = self.frames[34]
+                    self.image = self.frames[31 + timer]
                 if self.direction == 'down':
-                    if timer == 0:
-                        self.image = self.frames[1]
-                    elif timer == 1:
-                        self.image = self.frames[2]
-                    elif timer == 2:
-                        self.image = self.frames[3]
-                    else:
-                        self.image = self.frames[4]
+                    self.image = self.frames[1 + timer]
                 if self.direction == 'left':
-                    if timer == 0:
-                        self.image = self.frames[11]
-                    elif timer == 1:
-                        self.image = self.frames[12]
-                    elif timer == 2:
-                        self.image = self.frames[13]
-                    else:
-                        self.image = self.frames[14]
+                    self.image = self.frames[11 + timer]
                 if self.direction == 'right':
-                    if timer == 0:
-                        self.image = self.frames[21]
-                    elif timer == 1:
-                        self.image = self.frames[22]
-                    elif timer == 2:
-                        self.image = self.frames[23]
-                    else:
-                        self.image = self.frames[24]
+                    self.image = self.frames[21 + timer]
         else:
             if self.with_cube:
-                if self.direction == 'up':
-                    self.image = self.frames[35]
-                if self.direction == 'down':
-                    self.image = self.frames[5]
-                if self.direction == 'left':
-                    self.image = self.frames[15]
-                if self.direction == 'right':
-                    self.image = self.frames[25]
+                if self.with_cube.laser:
+                    if self.with_cube.quant:
+                        if self.direction == 'up':
+                            self.image = self.frames[110]
+                        if self.direction == 'down':
+                            self.image = self.frames[80]
+                        if self.direction == 'left':
+                            self.image = self.frames[90]
+                        if self.direction == 'right':
+                            self.image = self.frames[100]
+                    else:
+                        if self.direction == 'up':
+                            self.image = self.frames[70]
+                        if self.direction == 'down':
+                            self.image = self.frames[40]
+                        if self.direction == 'left':
+                            self.image = self.frames[50]
+                        if self.direction == 'right':
+                            self.image = self.frames[60]
+                elif self.with_cube.quant:
+                    if self.direction == 'up':
+                        self.image = self.frames[75]
+                    if self.direction == 'down':
+                        self.image = self.frames[45]
+                    if self.direction == 'left':
+                        self.image = self.frames[55]
+                    if self.direction == 'right':
+                        self.image = self.frames[65]
+                else:
+                    if self.direction == 'up':
+                        self.image = self.frames[35]
+                    if self.direction == 'down':
+                        self.image = self.frames[5]
+                    if self.direction == 'left':
+                        self.image = self.frames[15]
+                    if self.direction == 'right':
+                        self.image = self.frames[25]
             else:
                 if self.direction == 'up':
                     self.image = self.frames[30]
@@ -323,7 +328,7 @@ class Player():
         for cube in level[6]:
             if x_p == cube.pos[0] and y_p == cube.pos[1]:
                 self.with_cube = cube
-                cube.up()
+                cube.up(level[6], self.dimension)
                 return
 
     def cube_down(self, level):
@@ -337,10 +342,19 @@ class Player():
         for laser in level[9]:
             if x_p == laser.pos[0] and y_p == laser.pos[1]:
                 return
-        if level[0][1][int(x_p)][int(y_p)] == 'W' or level[0][1][int(x_p)][int(y_p)] == 'w':
+        if level[0][1][int(x_p)][int(y_p)] in stop_blocks:
             return
         if self.with_cube != 0:
-            self.with_cube.down(self.p_pos)
+            self.with_cube.down(self.p_pos, self.dimension)
+            if self.direction == 'up':
+                self.with_cube.direction = 0
+            elif self.direction == 'down':
+                self.with_cube.direction = 1
+            elif self.direction == 'left':
+                self.with_cube.direction = 2
+            elif self.direction == 'right':
+                self.with_cube.direction = 3
+            self.with_cube.images()
             self.with_cube = 0
 
     def tp_reload(self):

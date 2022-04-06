@@ -164,8 +164,10 @@ while running:
         player.colision_player(level, level[4])
         player.event()
         event_check(level[8], level)
+        for cube in level[6]:
+            cube.quants(level[6], level[3], level)
         for button in level[7]:
-            button.on_off(level[6], player.p_pos)
+            button.on_off(player.p_pos, level)
         for door in level[5]:
             door.open_check()
         for laser in level[9]:

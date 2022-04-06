@@ -43,6 +43,8 @@ textures_id = {
     'R': 'receiver'
 }
 
+Cubes_textures = ['cube', 'cube_laser_up', 'cube_laser_down', 'cube_laser_left', 'cube_laser_right', 'cube_q', 'cube_laser_q_up','cube_laser_q_down','cube_laser_q_left','cube_laser_q_right']
+
 stop_blocks = ['W', 'w', 'Z', 'R']
 
 POS_MENU = (Half_WIDHT-200*SCALE_x, 380*SCALE_y, 400*SCALE_x, HEIGHT-(220*2)*SCALE_y)

@@ -175,7 +175,10 @@ def draw_2(screen, world_map, size, player, cam_pos, textures, doors, cubes, but
             for laser in lasers:
                 for laser_line in laser.lasers:
                     if laser_line[0] == (i,t):
-                        image = textures.get(laser.laser_image[laser_line[1]])
+                        if (laser_line[2] in [0,1]):
+                            image = textures.get(laser.laser_image[(0 + laser_line[1])])
+                        else:
+                            image = textures.get(laser.laser_image[(2 + laser_line[1])])
                         screen.blit(image, (
                         laser_line[0][0] * TILE_x + a_pos[0], laser_line[0][1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
 
@@ -190,7 +193,7 @@ def draw_2(screen, world_map, size, player, cam_pos, textures, doors, cubes, but
                     if cube.pos == (i,t):
                         image = textures.get(cube.image)
                         screen.blit(image,
-                                    (cube.pos[0] * TILE_x + a_pos[0], cube.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+                                    (cube.pos[0] * TILE_x + a_pos[0], cube.pos[1] * TILE_y + a_pos[1]))
 
             for door in doors:
                 if door.pos == (i,t):

@@ -1,5 +1,5 @@
 import pygame
-
+from defs import update
 from settings import *
 
 class Button():
@@ -22,12 +22,16 @@ class Button():
         self.active = 0
         self.image = 'button'
 
-    def on_off(self, cubes, player_pos):
+    def on_off(self, player_pos, level):
+        active = self.active
         if self.x == player_pos[0] and self.y == player_pos[1]:
             self.on()
             return
-        for cube in cubes:
+        for cube in level[6]:
             if self.x == cube.pos[0] and self.y == cube.pos[1]:
                 self.on()
                 return
         self.off()
+        if self.active != active:
+            update(level)
+

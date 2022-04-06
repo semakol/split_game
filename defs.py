@@ -33,6 +33,9 @@ def textures_load():
     for name in filenames:
         imagename = os.path.splitext(name)[0]
         img = pygame.image.load(os.path.join(path, name)).convert_alpha()
+        if imagename in Cubes_textures:
+            images[imagename] = pygame.transform.scale(img, (int(TILE_x), int(TILE_y)))
+            continue
         images[imagename] = pygame.transform.scale(img, (
         int(TILE_x * img.get_size()[0] / 16), int(TILE_y * img.get_size()[1] / 16)))
     return images
@@ -64,7 +67,7 @@ def count_level():
 
 
 def chop_frames(image):
-    height, width = image.get_size()
+    width, height = image.get_size()
     h, w = TILE_y, TILE_x
 
     row = 0
