@@ -4,15 +4,16 @@ from settings import *
 
 class Doors():
 
-    def __init__(self, pos, old_version):
+    def __init__(self, pos, old_version, reverse=False):
         self.x , self.y = pos
         self.version = old_version
         self.direction = 0
         self.image = 'door_g_close'
         self.image2 = 'air'
         self.on = False
-        self.event_id = 0
+        self.event_id = 10
         self.can_open = True
+        self.reverse = reverse
 
     def directions(self):
         if self.direction:

@@ -50,10 +50,9 @@ def resource_path(relative):
 def event_check(event_link, level):
     for event in event_link:
         if event[1].active:
-            event[0].on = True
-            update(level)
+            event[0].on = True if not event[0].reverse else False
         if not event[1].active:
-            event[0].on = False
+            event[0].on = False if not event[0].reverse else True
 
 
 

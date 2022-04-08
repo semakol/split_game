@@ -2,7 +2,7 @@ from settings import *
 
 
 class Laser():
-    def __init__(self, pos):
+    def __init__(self, pos, reverse=False):
         self.x, self.y = pos
         self.lasers = []
         self.on = False
@@ -13,6 +13,7 @@ class Laser():
         self.laser_image = 'laser_line_v_0', 'laser_line_v_1', 'laser_line_g_0', 'laser_line_g_1'
         self.stop = False
         self.time = 0
+        self.reverse = reverse
 
     @property
     def pos(self):

@@ -71,7 +71,7 @@ def scan(text_map, textures):
                         world_map2[i][m] = ' '
                         continue
                     if char == 'd':
-                        doors.append(Doors((i, m), 1))
+                        doors.append(Doors((i, m), 0, reverse=True))
                         world_map2[i][m] = ' '
                         continue
                     if char == 'K':

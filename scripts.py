@@ -1,4 +1,5 @@
 from defs import message
+from entity.cube import Cube
 
 def level_scripts(level_number, player, screen, level, scripts, k_space, tp_script):
     if level_number == 1:
@@ -99,7 +100,37 @@ def level_scripts(level_number, player, screen, level, scripts, k_space, tp_scri
     elif level_number == 3:
         pass
     elif level_number == 4:
-        pass
+        if not scripts[0]:
+            if player.p_pos == (4, 8):
+                message(screen, 'В этом испытании вам предстоит столкнутся с безопасным лучом')
+                player.stuck = True
+                player.tp_on = False
+                if k_space[0]:
+                    level[6].append(Cube((0,0)))
+                    player.stuck = False
+                    scripts[0] = 1
+                    k_space[0] = 0
+                    scripts.append(0)
+        elif not scripts[1]:
+            if player.p_pos == (14, 10):
+                message(screen, 'Перед вами лежит "Куб преломления подавленности"')
+                player.stuck = True
+                player.tp_on = False
+                if k_space[0]:
+                    player.stuck = False
+                    scripts[1] = 1
+                    k_space[0] = 0
+                    scripts.append(0)
+        elif not scripts[2]:
+            if player.p_pos == (14, 10):
+                message(screen, 'Он перенаправляет луч')
+                player.stuck = True
+                player.tp_on = False
+                if k_space[0]:
+                    player.stuck = False
+                    scripts[2] = 1
+                    k_space[0] = 0
+                    scripts.append(0)
     elif level_number == 5:
         pass
     elif level_number == 6:
