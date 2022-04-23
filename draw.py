@@ -54,6 +54,8 @@ def floor_blit(world_map1, textures):
     floor_screen = pygame.Surface((len(world_map1) * TILE_x,len(world_map1[0]) * TILE_y))
     for i in range(0, len(world_map1)):
         for t in range(0, len(world_map1[0])):
+            if str(world_map1[i][t]) in [' ', '0']:
+                continue
             image = textures.get(textures_id[str(world_map1[i][t])])
             floor_screen.blit(image, (i * TILE_x, t * TILE_y))
     return floor_screen
@@ -158,13 +160,18 @@ def floor_blit(world_map1, textures):
 #             image = textures.get(textures_id[str(world_map[2][i][t])])
 #             screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1] - (TILE_y * 0.5)))
 
-def draw_2(screen, world_map, size, player, cam_pos, textures, doors, cubes, buttons, lasers, floor_screen):
+def draw_2(screen, world_map, size, player, cam_pos, textures, doors, cubes, buttons, lasers, floor_screen, k_alt, receivers):
     a_pos = (-cam_pos[0] + Half_WIDHT, -cam_pos[1] + Half_HEIGHT)
 
     screen.blit(floor_screen, a_pos)
 
-    for t in range(0, size[1]):
-        for i in range(0, size[0]):
+    x0 = 0 if player.p_pos[0] - 11 < 0 else player.p_pos[0] - 11
+    x1 = size[0] if player.p_pos[0] + 11 > size[0] else player.p_pos[0] + 11
+    y0 = 0 if player.p_pos[1] - 7 < 0 else player.p_pos[1] - 7
+    y1 = size[1] if player.p_pos[1] + 7 > size[1] else player.p_pos[1] + 7
+
+    for t in range(y0, y1):
+        for i in range(x0, x1):
 
             for button in buttons:
                 if button.pos == (i,t):
@@ -232,14 +239,26 @@ def draw_2(screen, world_map, size, player, cam_pos, textures, doors, cubes, but
                             image = textures.get(door.image)
                             screen.blit(image,
                                         (door.pos[0] * TILE_x + a_pos[0], door.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
-
+            if str(world_map[1][i][t]) in [' ', '0']:
+                continue
             image = textures.get(textures_id[str(world_map[1][i][t])])
             screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1] - (TILE_y * 0.5)))
 
     for t in range(0, size[1]):
         for i in range(0, size[0]):
+            if str(world_map[2][i][t]) in [' ', '0']:
+                continue
             image = textures.get(textures_id[str(world_map[2][i][t])])
             screen.blit(image, (i * TILE_x + a_pos[0], t * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+
+    if k_alt:
+        for entity in doors + lasers + buttons + receivers:
+            if entity.event_id != 0:
+                image = textures.get(str(entity.event_id))
+                screen.blit(image, (entity.pos[0] * TILE_x + a_pos[0], entity.pos[1] * TILE_y + a_pos[1] - (TILE_y * 0.5)))
+
+
+
 
 
 def draw_text(surf, text, size, x1, y1, color, center_x=False, center_y=False):

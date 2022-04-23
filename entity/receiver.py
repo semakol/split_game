@@ -12,26 +12,34 @@ class Receiver():
     def pos(self):
         return self.x, self.y
 
-    def check_laser(self, lasers):
+    def check_laser(self, laser):
         if self.stop:
             return
         else:
-            if lasers == []:
-                self.active = False
-            for laser in lasers:
-                if (laser[0] == (self.x + 1, self.y)) and (laser[1] == 0):
+            for l in laser:
+                lasers = l.lasers
+                if lasers == []:
+                    self.active = False
+                    self.stop = True
+                    continue
+                laser = lasers[len(lasers)-1], lasers[len(lasers)-2]
+                if (((laser[0][0] == (self.x + 1, self.y)) and (laser[0][1] == 0) and (laser[0][2] == 2)) or
+                        ((laser[1][0] == (self.x + 1, self.y)) and (laser[1][1] == 0) and (laser[1][2] == 2))):
                     self.active = True
                     self.stop = True
                     return
-                if (laser[0] == (self.x - 1, self.y)) and (laser[1] == 1):
+                elif ((laser[0][0] == (self.x - 1, self.y)) and (laser[0][1] == 1) and (laser[0][2] == 3)) or \
+                        ((laser[1][0] == (self.x - 1, self.y)) and (laser[1][1] == 1) and (laser[1][2] == 3)):
                     self.active = True
                     self.stop = True
                     return
-                if (laser[0] == (self.x, self.y + 1)) and (laser[1] == 0):
+                elif ((laser[0][0] == (self.x, self.y + 1)) and (laser[0][1] == 1) and (laser[0][2] == 0)) or \
+                        ((laser[1][0] == (self.x, self.y + 1)) and (laser[1][1] == 1) and (laser[1][2] == 0)):
                     self.active = True
                     self.stop = True
                     return
-                if (laser[0] == (self.x, self.y - 1)) and (laser[1] == 1):
+                elif ((laser[0][0] == (self.x, self.y - 1)) and (laser[0][1] == 0) and (laser[0][2] == 1)) or \
+                        ((laser[1][0] == (self.x, self.y - 1)) and (laser[1][1] == 0) and (laser[1][2] == 1)):
                     self.active = True
                     self.stop = True
                     return

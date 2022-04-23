@@ -30,6 +30,7 @@ def scan(text_map, textures):
                 size = (int(f[j + 2]), int(f[j + 3]))
             if f[j + 1] == 'jump =\n':
                 jump = int(f[j + 2])
+                direction = 0 if f[j + 3] == 'x\n' else 1
         if f[j] == '@s\n':
             r = j
             break
@@ -66,6 +67,10 @@ def scan(text_map, textures):
                         lasers.append(Laser((i,m)))
                         world_map2[i][m] = ' '
                         continue
+                    if char == 'l':
+                        lasers.append(Laser((i,m), reverse=True))
+                        world_map2[i][m] = ' '
+                        continue
                     if char == 'D':
                         doors.append(Doors((i, m), 0))
                         world_map2[i][m] = ' '
@@ -83,7 +88,7 @@ def scan(text_map, textures):
                         world_map2[i][m] = ' '
                         continue
                     if char == 'Q':
-                        cubes.append(Cube((i,m), quant=True, laser=True))
+                        cubes.append(Cube((i,m), quant=True))
                         world_map2[i][m] = ' '
                         continue
                     if char == 'B':
@@ -108,70 +113,91 @@ def scan(text_map, textures):
                 for i, char in enumerate(f[t]):
                     if char == '\n':
                         continue
+                    if char == 'b':
+                        events.append((i, m, char))
+                        continue
                     if not ((char == '0') or  (char == ' ')):
                         events.append((i,m,int(char)))
-        for door in doors:
-            x = door.x
-            y = door.y
-            if (world_map2[x + 1][y] == ('W' or 'w')) and (world_map2[x - 1][y] == ('W' or 'w')):
-                door.direction = 0
-            if (world_map2[x][y + 1] == ('W' or 'w')) and (world_map2[x][y - 1] == ('W' or 'w')):
-                door.direction = 1
-            door.directions()
-            for event in events:
+    for door in doors:
+        x = door.x
+        y = door.y
+        if (world_map2[x + 1][y] in stop_blocks) and (world_map2[x - 1][y] in stop_blocks):
+            door.direction = 0
+        if (world_map2[x][y + 1] in stop_blocks) and (world_map2[x][y - 1] in stop_blocks):
+            door.direction = 1
+        door.directions()
+        for event in events:
+            if event[2] != 0:
                 if x == event[0] and y == event[1]:
                     door.event_id = event[2]
                     door.can_open = False
 
+    for button in buttons:
+        for event in events:
+            if button.pos[0] == event[0] and button.pos[1] == event[1]:
+                button.event_id = event[2]
+
+    for laser in lasers:
+        for event in events:
+            if laser.pos[0] == event[0] and laser.pos[1] == event[1]:
+                laser.event_id = event[2]
+
+    for receiver in receivers:
+        for event in events:
+            if receiver.pos[0] == event[0] and receiver.pos[1] == event[1]:
+                receiver.event_id = event[2]
+
+    event_link = []
+    for door in doors:
+        if door.event_id in [0, 'b']:
+            continue
         for button in buttons:
-            for event in events:
-                if button.pos[0] == event[0] and button.pos[1] == event[1]:
-                    button.event_id = event[2]
-
-        for laser in lasers:
-            for event in events:
-                if laser.pos[0] == event[0] and laser.pos[1] == event[1]:
-                    laser.event_id = event[2]
-
+            if button.event_id in [0, 'b']:
+                continue
+            if door.event_id == button.event_id:
+                event_link.append((door, button))
         for receiver in receivers:
-            for event in events:
-                if receiver.pos[0] == event[0] and receiver.pos[1] == event[1]:
-                    receiver.event_id = event[2]
+            if receiver.event_id in [0, 'b']:
+                continue
+            if door.event_id == receiver.event_id:
+                event_link.append((door, receiver))
 
-        event_link = []
-        for door in doors:
-            for button in buttons:
-                if door.event_id == button.event_id:
-                    event_link.append((door, button))
-            for receiver in receivers:
-                if door.event_id == receiver.event_id:
-                    event_link.append((door, receiver))
-
-        for laser in lasers:
-            for button in buttons:
-                if laser.event_id == button.event_id:
-                    event_link.append((laser, button))
-            for receiver in receivers:
-                if laser.event_id == receiver.event_id:
-                    event_link.append((laser, receiver))
+    for laser in lasers:
+        if laser.event_id in [0, 'b']:
+            continue
+        for button in buttons:
+            if button.event_id in [0, 'b']:
+                continue
+            if laser.event_id == button.event_id:
+                event_link.append((laser, button))
+        for receiver in receivers:
+            if receiver.event_id in [0, 'b']:
+                continue
+            if laser.event_id == receiver.event_id:
+                event_link.append((laser, receiver))
 
 
-        for laser in lasers:
-            if world_map2[laser.x + 1][laser.y] == 'Z':
-                laser.direction = 'left'
-            elif world_map2[laser.x - 1][laser.y] == 'Z':
-                laser.direction = 'right'
-            elif world_map2[laser.x][laser.y + 1] == 'Z':
-                laser.direction = 'up'
-            elif world_map2[laser.x][laser.y - 1] == 'Z':
-                laser.direction = 'down'
-            laser.images()
+    for laser in lasers:
+        if world_map2[laser.x + 1][laser.y] == 'Z':
+            laser.direction = 'left'
+        elif world_map2[laser.x - 1][laser.y] == 'Z':
+            laser.direction = 'right'
+        elif world_map2[laser.x][laser.y + 1] == 'Z':
+            laser.direction = 'up'
+        elif world_map2[laser.x][laser.y - 1] == 'Z':
+            laser.direction = 'down'
+        laser.images()
+
+    for entity in lasers + doors:
+        if entity.reverse:
+            entity.on = True
+
 
     floor_screen = floor_blit(world_map1, textures)
 
 
     return (world_map1, world_map2, world_map3), spawn_pos, end_pos, jump, size, doors, cubes, buttons, event_link,\
-           lasers, floor_screen, receivers
+           lasers, floor_screen, receivers, direction
 
 
 # def scan(text_map):

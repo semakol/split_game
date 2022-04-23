@@ -40,7 +40,9 @@ textures_id = {
     'G': 'green_place',
     'T': 'glass_wall',
     'Z': 'electrick',
-    'R': 'receiver'
+    'R': 'receiver',
+    'h': 'stand',
+    'N': 'glass'
 }
 
 Cubes_textures = ['cube', 'cube_laser_up', 'cube_laser_down', 'cube_laser_left', 'cube_laser_right', 'cube_q', 'cube_laser_q_up','cube_laser_q_down','cube_laser_q_left','cube_laser_q_right']

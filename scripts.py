@@ -79,7 +79,7 @@ def level_scripts(level_number, player, screen, level, scripts, k_space, tp_scri
             if player.p_pos == (12, 2):
                 player.stuck = True
                 player.tp_on = False
-                message(screen, 'Поднять, опустить Куб "R"')
+                message(screen, 'Поднять, опустить Куб "E"')
                 if k_space[0]:
                     player.stuck = False
                     scripts[7] = 1
@@ -87,33 +87,78 @@ def level_scripts(level_number, player, screen, level, scripts, k_space, tp_scri
                     scripts.append(0)
     elif level_number == 2:
         if not scripts[0]:
-            if player.p_pos == (5, 5):
-                message(screen, 'Открывать дверь на "E"')
+            player.tp_on = False
+            tp_script[0] = False
+            scripts[0] = 1
+            k_space[0] = 0
+            scripts.append(0)
+    elif level_number == 3:
+        if not scripts[0]:
+            player.tp_on = False
+            tp_script[0] = False
+            scripts[0] = 1
+            k_space[0] = 0
+            scripts.append(0)
+        if not scripts[1]:
+            if player.p_pos == (4, 8):
+                message(screen, 'Диктор: В этом испытании вам предстоит столкнутся с безопасным лучом')
                 player.stuck = True
                 player.tp_on = False
                 tp_script[0] = False
                 if k_space[0]:
                     player.stuck = False
-                    scripts[0] = 1
+                    scripts[1] = 1
                     k_space[0] = 0
                     scripts.append(0)
-    elif level_number == 3:
-        pass
-    elif level_number == 4:
-        if not scripts[0]:
+                    level[6].append(Cube((0,0)))
+        elif not scripts[2]:
             if player.p_pos == (4, 8):
-                message(screen, 'В этом испытании вам предстоит столкнутся с безопасным лучом')
+                message(screen, '"Alt" Посмотреть связи')
+                player.stuck = True
+                player.tp_on = False
+                tp_script[0] = False
+                if k_space[0]:
+                    player.stuck = False
+                    scripts[2] = 1
+                    k_space[0] = 0
+                    scripts.append(0)
+        elif not scripts[3]:
+            if player.p_pos == (14, 10):
+                message(screen, 'Диктор: Перед вами лежит "Куб преломления подавленности"')
                 player.stuck = True
                 player.tp_on = False
                 if k_space[0]:
-                    level[6].append(Cube((0,0)))
                     player.stuck = False
-                    scripts[0] = 1
+                    scripts[3] = 1
                     k_space[0] = 0
                     scripts.append(0)
-        elif not scripts[1]:
+        elif not scripts[4]:
             if player.p_pos == (14, 10):
-                message(screen, 'Перед вами лежит "Куб преломления подавленности"')
+                message(screen, 'Диктор: Он перенаправляет луч')
+                player.stuck = True
+                player.tp_on = False
+                if k_space[0]:
+                    player.stuck = False
+                    scripts[4] = 1
+                    k_space[0] = 0
+                    scripts.append(0)
+    elif level_number == 4:
+        if not scripts[0]:
+            player.tp_on = False
+            tp_script[0] = False
+            scripts[0] = 1
+            k_space[0] = 0
+            scripts.append(0)
+    elif level_number == 5:
+        if not scripts[0]:
+            player.tp_on = False
+            tp_script[0] = False
+            scripts[0] = 1
+            k_space[0] = 0
+            scripts.append(0)
+        if not scripts[1]:
+            if player.p_pos == (7, 5):
+                message(screen, 'Диктор: Подберите устройство смещения измерения')
                 player.stuck = True
                 player.tp_on = False
                 if k_space[0]:
@@ -122,8 +167,8 @@ def level_scripts(level_number, player, screen, level, scripts, k_space, tp_scri
                     k_space[0] = 0
                     scripts.append(0)
         elif not scripts[2]:
-            if player.p_pos == (14, 10):
-                message(screen, 'Он перенаправляет луч')
+            if player.p_pos == (7, 7):
+                message(screen, 'Диктор: Используйте его')
                 player.stuck = True
                 player.tp_on = False
                 if k_space[0]:
@@ -131,7 +176,44 @@ def level_scripts(level_number, player, screen, level, scripts, k_space, tp_scri
                     scripts[2] = 1
                     k_space[0] = 0
                     scripts.append(0)
-    elif level_number == 5:
-        pass
+        elif not scripts[3]:
+            if player.p_pos == (7, 7):
+                message(screen, 'Сместить измерение: "Q"')
+                player.stuck = True
+                player.tp_on = False
+                if k_space[0]:
+                    player.stuck = False
+                    player.tp_on = True
+                    tp_script[0] = True
+                    level[0][1][7][7] = ' '
+                    scripts[3] = 1
+                    k_space[0] = 0
+                    scripts.append(0)
     elif level_number == 6:
-        pass
+        if not scripts[0]:
+            level[6].append(Cube((36, 9)))
+            scripts[0] = 1
+            scripts.append(0)
+    elif level_number == 8:
+        if not scripts[0]:
+            if (player.p_pos == (7, 5)) or (player.p_pos == (33, 5)):
+                message(screen, 'Диктор: Это квантовый куб')
+                player.stuck = True
+                player.tp_on = False
+                if k_space[0]:
+                    player.stuck = False
+                    player.tp_on = True
+                    scripts[0] = 1
+                    k_space[0] = 0
+                    scripts.append(0)
+        elif not scripts[1]:
+            if (player.p_pos == (7, 5)) or (player.p_pos == (33, 5)):
+                message(screen, 'Диктор: Он находится сразу в двух измерениях')
+                player.stuck = True
+                player.tp_on = False
+                if k_space[0]:
+                    player.stuck = False
+                    player.tp_on = True
+                    scripts[1] = 1
+                    k_space[0] = 0
+                    scripts.append(0)

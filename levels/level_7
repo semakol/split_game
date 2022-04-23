@@ -1,0 +1,65 @@
+@
+size =
+46
+13
+@
+jump =
+28
+x
+@s
+@1
+      .....                       .....
+      .....                       .....
+      ..S..                       .....
+      .....                       .....
+.............               .............
+.............               .............
+..................          ..................
+..................          ..................
+...............E..          ..................
+..................          ..................
+..................          ..................
+.............               .............
+.............               .............
+@2
+      WWWWW                       WWWWW
+      W   W                       W   W
+      W $ W                       W $ W
+      W   W                       W   W
+WWWWWWWWDWZWW               WWWWWWWWDWZWW
+ZL B  W   l W               ZL B  W   l W
+W     W     WWWWWW          W     W     WWWWWW
+W     D   E RW   W          W     D     RW   W
+WWWNWWW     DD $ W          WWWNWWW     DD $ W
+ZL    D     RW   W          ZL E  D     RW   W
+W     W     WWWWWW          W     W     WWWWWW
+W     W     W               W     W     W
+WWWRWWWWWWWWW               WWWRWWWWWWWWW
+@3
+
+
+        P                           P
+
+
+
+
+
+               P                           P
+
+
+
+
+@4
+
+
+
+
+
+ 3 3                         b b
+
+      1     1                     b     b
+            12                          bb
+ 4    2     2                b    b     b
+
+
+   4                           b

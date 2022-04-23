@@ -1,19 +1,182 @@
 @
 size =
 15
-10
+41
 @
 jump =
-8
+25
+y
 @s
 @1
-WWWWWWW WWWWWWW
-WSW.W.W W.....W
-WWW.W.W W.....W
-W.....W W.....W
-W.W.WWW W.....W
-W.W.W.W W.....W
-WWW.W.W W.....W
-W.W...W W..E..W
-W.W.W.W W.....W
-WWWWWWW WWWWWWW
+     .....
+     .....
+     ..S..
+     .....
+    .......
+...............
+...............
+...............
+...............
+...............
+    .......
+     .....
+     .....
+     ..E..
+     .....
+     .....
+
+
+
+
+
+
+
+
+
+     .....
+     .....
+     .....
+     .....
+    .......
+...............
+...............
+...............
+...............
+...............
+    .......
+     .....
+     .....
+     .....
+     .....
+     .....
+@2
+     WWWWW
+     W   W
+     W $ W
+     W   W
+    WWWDWWW
+WWWWW     WWWWW
+WK  WB    W  KW
+W   D  h  D   W
+W   W     W   W
+WWWWW    BWWWWW
+    WWWDWWW
+     WWDWW
+     W   W
+     W $ W
+     W   W
+     WWWWW
+
+
+
+
+
+
+
+
+
+     WWWWW
+     W   W
+     W $ W
+     W   W
+    WWWDWWW
+WWWWW     WWWWW
+W   W     W   W
+W   D     d   W
+W   W     W   W
+WWWWW    BWWWWW
+    WWWDWWW
+     WWDWW
+     W   W
+     W $ W
+     W   W
+     WWWWW
+@3
+
+
+       P
+
+
+
+
+
+
+
+
+
+
+       P
+
+
+
+
+
+
+
+
+
+
+
+
+
+       P
+
+
+
+
+
+
+
+
+
+
+       P
+
+
+@4
+
+
+
+
+
+
+     1
+    1     b
+
+         3
+       b
+       3
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    b     b
+
+         2
+       2
+       b
+
+
+
+
+
+
+
+
+

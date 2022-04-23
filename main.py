@@ -132,11 +132,7 @@ while running:
                             player.tp_on = False
                 if event.key == pygame.K_SPACE:
                     k_space[0] = 1
-
                 if event.key == pygame.K_e:
-                    player.action(level)
-                    update(level)
-                if event.key == pygame.K_r:
                     update(level)
                     if player.with_cube == 0:
                         player.cube_up(level)
@@ -152,6 +148,7 @@ while running:
             level = next_level(level_number, textures)
             player.__init__(level, textures)
             player.end = 0
+            update(level)
             time = 0
             player.tp_on = False
             scripts.clear()
@@ -163,21 +160,21 @@ while running:
         cam_pos = player.pos
         player.colision_player(level, level[4])
         player.event()
-        event_check(level[8], level)
         for cube in level[6]:
             cube.quants(level[6], level[3], level)
         for button in level[7]:
             button.on_off(player.p_pos, level)
         for door in level[5]:
-            door.open_check()
+            door.open_check(player.p_pos, level)
+        event_check(level[8], level)
         for laser in level[9]:
             laser.laser_on(level)
-            for receiver in level[11]:
-                receiver.check_laser(laser.lasers)
+        for receiver in level[11]:
+            receiver.check_laser(level[9])
 
         screen.fill(BLACK)
         player.tp_reload()
-        draw_2(screen, level[0], level[4], player, cam_pos, textures, level[5], level[6], level[7], level[9], level[10])
+        draw_2(screen, level[0], level[4], player, cam_pos, textures, level[5], level[6], level[7], level[9], level[10], keys[pygame.K_LALT], level[11])
         draw_reload(screen, player.time_reload, player.tp_reload_time)
         level_scripts(level_number, player, screen, level, scripts, k_space, tp_script)
         draw_text(screen, str(clock), 20, 0, 0, RED)

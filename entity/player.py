@@ -1,6 +1,10 @@
 import pygame
+from numba import njit
+
 from defs import chop_frames, update
 from settings import *
+
+
 
 
 class Player():
@@ -12,6 +16,7 @@ class Player():
         self.pos_face = standart_pos
         self.size = 10 * SCALE_x
         self.dimension = 1
+        self.dim_dir = level[12]
         self.direction = 'down'
         self.stuck = False
         self.end_pos = level[2]
@@ -162,7 +167,7 @@ class Player():
             for t in range(0, size[1]):
                 x = i * TILE_x
                 y = t * TILE_y
-                if not ((level[0][1][i][t] in stop_blocks) | (level[0][0][i][t] == ' ')):
+                if not ((level[0][1][i][t] in stop_blocks) | (level[0][0][i][t] == ' ') | (level[0][1][i][t] == 'N')):
                     continue
                 if (x < self.x) \
                         & (x + TILE_x > self.x) \
@@ -301,25 +306,36 @@ class Player():
     def tp(self):
         # /tp sema_kol school
         if self.tp_on:
-            if self.dimension == 1:
-                self.x += self.jump * TILE_x
-                self.dimension = 2
-                return
-            if self.dimension == 2:
-                self.x -= self.jump * TILE_x
-                self.dimension = 1
-                return
+            if not self.dim_dir:
+                if self.dimension == 1:
+                    self.x += self.jump * TILE_x
+                    self.dimension = 2
+                    return
+                if self.dimension == 2:
+                    self.x -= self.jump * TILE_x
+                    self.dimension = 1
+                    return
+            else:
+                if self.dimension == 1:
+                    self.y += self.jump * TILE_y
+                    self.dimension = 2
+                    return
+                if self.dimension == 2:
+                    self.y -= self.jump * TILE_y
+                    self.dimension = 1
+                    return
 
     def event(self):
         if self.p_pos == self.end_pos:
             self.end = 1
 
-    def action(self, level):
-        x_p, y_p = self.p_pos
-        for door in level[5]:
-            if door.can_open:
-                if x_p == door.pos[0] and y_p == door.pos[1]:
-                    door.on = True if door.on == False else False
+    # def action(self, level):
+    #     x_p, y_p = self.p_pos
+    #     for door in level[5]:
+    #         if door.can_open:
+    #             if x_p == door.pos[0] and y_p == door.pos[1]:
+    #                 door.on = True if door.on == False else False
+    #                 update(level)
 
 
 
