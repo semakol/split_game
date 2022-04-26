@@ -8,39 +8,39 @@ jump =
 x
 @s
 @1
-     .....                     .....
-     .....                     .....
-     ..S..                     .....
-     .....                     .....
-    .......                   .......
-...............           ...............
-...............           ...............
-...............           ...............
-...............           ...............
-...............           ...............
-    .......                   .......
-     .....                     .....
-     .....                     .....
-     ..E..                     .....
-     .....                     .....
-     .....                     .....
+     .....                     ,,,,,
+     .....                     ,,,,,
+     ..S..                     ,,s,,
+     .....                     ,,,,,
+    .......                   ,,,,,,,
+...............           ,,,,,,,,,,,,,,,
+...............           ,,,,,,,,,,,,,,,
+...............           ,,,,,,,,,,,,,,,
+...............           ,,,,,,,,,,,,,,,
+...............           ,,,,,,,,,,,,,,,
+    .......                   ,,,,,,,
+     .....                     ,,,,,
+     .....                     ,,,,,
+     ..E..                     ,,e,,
+     .....                     ,,,,,
+     .....                     ,,,,,
 @2
-     WWWWW                     WWWWW
-     W   W                     W   W
-     W $ W                     W $ W
-     W   W                     W   W
-    WWWDWWW                   WWWDWWW
-WWWWW     WWWWW           WWWWW     WWWWW
-W   W     W   W           W   W     W   W
-W B D  Q  D K W           W B d     D   W
-W   W     W   W           W   W     W   W
-WWWWW   B WWWWW           WWWWW   B WWWWW
-    WWWDWWW                   WWWDWWW
-     WWdWW                     WWdWW
-     W   W                     W   W
-     W $ W                     W $ W
-     W   W                     W   W
-     WWWWW                     WWWWW
+     WWWWW                     wwwww
+     W   W                     w   w
+     W $ W                     w $ w
+     W   W                     w   w
+    WWWDWWW                   wwwDwww
+WWWWW     WWWWW           wwwww     wwwww
+W   W     W   W           w   w     w   w
+W B D  Q  D K W           w B d     D   w
+W   W     W   W           w   W     w   w
+WWWWW   B WWWWW           wwwww   B wwwww
+    WWWDWWW                   wwwDwww
+     WWdWW                     wwdww
+     W   W                     w   w
+     W $ W                     w $ w
+     W   W                     w   w
+     WWWWW                     wwwww
 @3
 
 

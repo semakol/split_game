@@ -98,6 +98,10 @@ def scan(text_map, textures):
                     if char == 'R':
                         receivers.append(Receiver((i,m)))
                     world_map2[i][m] = char
+                    if char == 'q':
+                        cubes.append(Cube((i,m), quant=True, laser=True))
+                        world_map2[i][m] = ' '
+                        continue
         if f[j] == '@3\n':
             m = -1
             for t in range(j + 1, j + size[1] + 1):

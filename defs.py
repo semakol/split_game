@@ -90,16 +90,14 @@ def chop_frames(image):
 def message(screen, text):
     f1 = pygame.font.SysFont('arial', int(15 * SCALE_x))
     text1 = f1.render(text, True, WHITE)
-    text2 = pygame.font.SysFont('Pixel Times', int(15 * SCALE_x)).render('<Пробел>', True, WHITE)
-    x = standart_pos[0] - text1.get_size()[0] // 2
-    y = standart_pos[1] - 100 * SCALE_y - text1.get_size()[1] // 2
-    pygame.draw.rect(screen, BLACK, (
-    x - 10 * SCALE_x, y - 10 * SCALE_y, text1.get_size()[0] + 20 * SCALE_y, text1.get_size()[1] + 20 * SCALE_y))
+    f2 = pygame.font.Font('resources/F77 Minecraft.ttf', int(10 * SCALE_x))
+    text2 = f2.render('<Пробел>', True, BLACK)
+    x = standart_pos[0] - (text1.get_size()[0] // 2)
+    y = standart_pos[1] - (100 * SCALE_y) - (text1.get_size()[1] // 2)
+    pygame.draw.rect(screen, BLACK, (x - 10 * SCALE_x, y - 10 * SCALE_y, text1.get_size()[0] + 20 * SCALE_y, text1.get_size()[1] + 20 * SCALE_y))
     screen.blit(text1, (x, y))
-    pygame.draw.rect(screen, WHITE, (
-    x - 10 * SCALE_x, y - 10 * SCALE_y, text1.get_size()[0] + 20 * SCALE_y, text1.get_size()[1] + 20 * SCALE_y), 1)
-    pygame.draw.rect(screen, WHITE, (
-        x - 8 * SCALE_x, y - 8 * SCALE_y, text1.get_size()[0] + 16 * SCALE_y, text1.get_size()[1] + 16 * SCALE_y), 1)
+    pygame.draw.rect(screen, WHITE, (x - 10 * SCALE_x, y - 10 * SCALE_y, text1.get_size()[0] + 20 * SCALE_y, text1.get_size()[1] + 20 * SCALE_y), 1)
+    pygame.draw.rect(screen, WHITE, (x - 8 * SCALE_x, y - 8 * SCALE_y, text1.get_size()[0] + 16 * SCALE_y, text1.get_size()[1] + 16 * SCALE_y), 1)
     screen.blit(text2, (x + text1.get_size()[0] - text2.get_size()[0], y + text1.get_size()[1] + text2.get_size()[1]))
 
 def update(level):

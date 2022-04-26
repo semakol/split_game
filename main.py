@@ -24,6 +24,8 @@ menu_buttons = [
                 'Выход')
 ]
 
+Logo = pygame.transform.scale(pygame.image.load('resources/Logo.png'), (int(560 * SCALE_x) ,int(200 * SCALE_y))).convert_alpha()
+
 settings_buttons = [
     Menu_button((POS_MENU[0], POS_MENU[1], POS_MENU[2], POS_MENU[3] // 4 - 5 * SCALE_y), 'start', 'Продолжить')
 ]
@@ -43,11 +45,11 @@ level = next_level(level_number, textures)
 player = Player(level, textures)
 time = 0
 timer_16 = 0
-setting = False
 menu = True
 game = False
 level_menu = False
-k_space = [0]
+end = False
+k_space = [False]
 tp_script = [True]
 
 running = True
@@ -75,23 +77,9 @@ while running:
                     pygame.event.post(pygame.event.Event(256))
                 if menu_event == 'start':
                     game, menu = True, False
-                if menu_event == 'settings':
-                    menu, setting = False, True
                 if menu_event == 'levels':
                     menu, level_menu = False, True
-        pygame.display.flip()
-
-    #
-
-    if setting:
-        screen.fill((100, 100, 100))
-        for event in events:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_ESCAPE:
-                    setting, menu = False, True
-        for settings_button in settings_buttons:
-            settings_button.draw(screen)
-            setting_event = settings_button.click(mouse_pos, mouse_click)
+        screen.blit(Logo, (int(Half_WIDHT- Logo.get_size()[0] // 2), int((200 * SCALE_y) - Logo.get_size()[1] // 2)))
         pygame.display.flip()
 
     #
@@ -109,10 +97,10 @@ while running:
                 level = next_level(level_button.event, textures)
                 level_number = level_button.event
                 player.__init__(level, textures)
-                player.end = 0
+                player.end = False
                 time = 0
                 scripts.clear()
-                scripts.append(0)
+                scripts.append(False)
                 tp_script[0] = True
                 level_menu, game = False, True
         pygame.display.flip()
@@ -131,7 +119,7 @@ while running:
                             player.tp()
                             player.tp_on = False
                 if event.key == pygame.K_SPACE:
-                    k_space[0] = 1
+                    k_space[0] = True
                 if event.key == pygame.K_e:
                     update(level)
                     if player.with_cube == 0:
@@ -145,14 +133,17 @@ while running:
 
         if player.end:
             level_number += 1
-            level = next_level(level_number, textures)
+            try:
+                level = next_level(level_number, textures)
+            except BaseException:
+                game, end = False, True
             player.__init__(level, textures)
             player.end = 0
             update(level)
             time = 0
             player.tp_on = False
             scripts.clear()
-            scripts.append(0)
+            scripts.append(False)
             tp_script[0] = True
         mouse_pos = pygame.mouse.get_pos()
         player.movement()
@@ -174,12 +165,23 @@ while running:
 
         screen.fill(BLACK)
         player.tp_reload()
-        draw_2(screen, level[0], level[4], player, cam_pos, textures, level[5], level[6], level[7], level[9], level[10], keys[pygame.K_LALT], level[11])
+        draw_2(screen, level[0], level[4], player, cam_pos, textures, level[5], level[6], level[7], level[9], level[10],
+               keys[pygame.K_LALT], level[11])
         draw_reload(screen, player.time_reload, player.tp_reload_time)
         level_scripts(level_number, player, screen, level, scripts, k_space, tp_script)
         draw_text(screen, str(clock), 20, 0, 0, RED)
         draw_text(screen, str(time / FPS) + ' s', 20, 200, 0, RED)
         draw_text(screen, f'level: {level_number}', 20, 300, 0, RED)
         pygame.draw.circle(screen, BLUE, mouse_pos, 3 * SCALE_x)
+        pygame.display.flip()
+
+    if end:
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    end, menu = False, True
+        screen.fill((190, 190, 190))
+        draw_text(screen, 'Спасибо что поиграли в мою игру', int(50 * SCALE_x), Half_WIDHT, Half_HEIGHT, BLUE, True,
+                  True)
         pygame.display.flip()
 pygame.quit()

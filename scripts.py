@@ -10,9 +10,9 @@ def level_scripts(level_number, player, screen, level, scripts, k_space, tp_scri
             tp_script[0] = False
             if k_space[0]:
                 player.stuck = False
-                scripts[0] = 1
-                k_space[0] = 0
-                scripts.append(0)
+                scripts[0] = True
+                k_space[0] = False
+                scripts.append(False)
         elif not scripts[1]:
             player.stuck = True
             player.tp_on = False
@@ -123,10 +123,11 @@ def level_scripts(level_number, player, screen, level, scripts, k_space, tp_scri
                     k_space[0] = 0
                     scripts.append(0)
         elif not scripts[3]:
-            if player.p_pos == (14, 10):
-                message(screen, 'Диктор: Перед вами лежит "Куб преломления подавленности"')
+            if player.p_pos == (4, 8):
+                message(screen, '"B" Значит заблокировано')
                 player.stuck = True
                 player.tp_on = False
+                tp_script[0] = False
                 if k_space[0]:
                     player.stuck = False
                     scripts[3] = 1
@@ -134,12 +135,22 @@ def level_scripts(level_number, player, screen, level, scripts, k_space, tp_scri
                     scripts.append(0)
         elif not scripts[4]:
             if player.p_pos == (14, 10):
-                message(screen, 'Диктор: Он перенаправляет луч')
+                message(screen, 'Диктор: Перед вами лежит "Куб преломления подавленности"')
                 player.stuck = True
                 player.tp_on = False
                 if k_space[0]:
                     player.stuck = False
                     scripts[4] = 1
+                    k_space[0] = 0
+                    scripts.append(0)
+        elif not scripts[5]:
+            if player.p_pos == (14, 10):
+                message(screen, 'Диктор: Он перенаправляет луч')
+                player.stuck = True
+                player.tp_on = False
+                if k_space[0]:
+                    player.stuck = False
+                    scripts[5] = 1
                     k_space[0] = 0
                     scripts.append(0)
     elif level_number == 4:
@@ -215,5 +226,85 @@ def level_scripts(level_number, player, screen, level, scripts, k_space, tp_scri
                     player.stuck = False
                     player.tp_on = True
                     scripts[1] = 1
+                    k_space[0] = 0
+                    scripts.append(0)
+    elif level_number == 11:
+        if not scripts[0]:
+            if (player.p_pos == (14, 5)) or (player.p_pos == (52, 5)):
+                message(screen, 'Диктор: Это квантовый куб преломления подавленности')
+                player.stuck = True
+                player.tp_on = False
+                if k_space[0]:
+                    player.stuck = False
+                    player.tp_on = True
+                    scripts[0] = 1
+                    k_space[0] = 0
+                    scripts.append(0)
+        elif not scripts[1]:
+            if (player.p_pos == (14, 5)) or (player.p_pos == (52, 5)):
+                message(screen, 'Диктор: Он перемещает луч в другое измерение')
+                player.stuck = True
+                player.tp_on = False
+                if k_space[0]:
+                    player.stuck = False
+                    player.tp_on = True
+                    scripts[1] = 1
+                    k_space[0] = 0
+                    scripts.append(0)
+    elif level_number == 15:
+        if not scripts[0]:
+            if player.p_pos == (6, 5):
+                message(screen, 'Диктор: Поздравляю')
+                player.stuck = True
+                player.tp_on = False
+                if k_space[0]:
+                    player.stuck = False
+                    player.tp_on = True
+                    scripts[0] = 1
+                    k_space[0] = 0
+                    scripts.append(0)
+        elif not scripts[1]:
+            if player.p_pos == (6, 5):
+                message(screen, 'Диктор: Вы прошли все испытания')
+                player.stuck = True
+                player.tp_on = False
+                if k_space[0]:
+                    player.stuck = False
+                    player.tp_on = True
+                    scripts[1] = 1
+                    k_space[0] = 0
+                    scripts.append(0)
+        elif not scripts[2]:
+            if player.p_pos == (6, 5):
+                message(screen, 'Диктор: Вы нам подходите')
+                player.stuck = True
+                player.tp_on = False
+                if k_space[0]:
+                    player.stuck = False
+                    player.tp_on = True
+                    scripts[2] = 1
+                    k_space[0] = 0
+                    scripts.append(0)
+        elif not scripts[3]:
+            if player.p_pos == (6, 5):
+                message(screen, 'Диктор: Пройдите в камеру')
+                player.stuck = True
+                player.tp_on = False
+                if k_space[0]:
+                    player.stuck = False
+                    player.tp_on = True
+                    scripts[3] = 1
+                    k_space[0] = 0
+                    scripts.append(0)
+        elif not scripts[4]:
+            if level[7][0].active:
+                message(screen, 'Диктор: Начался процесс заморозки')
+                player.stuck = True
+                player.tp_on = False
+                if k_space[0]:
+                    player.stuck = False
+                    player.tp_on = True
+                    player.end = True
+                    scripts[4] = 1
                     k_space[0] = 0
                     scripts.append(0)

@@ -20,7 +20,7 @@ WHITE = (250, 250, 250)
 GREY = (100, 100, 100)
 BLACK = (0, 0, 0)
 RED = (255, 0, 0)
-GREEN = (0, 255, 0)
+GREEN = (0, 240, 0)
 BLUE = (0, 0, 255)
 
 textures_id = {
@@ -28,10 +28,10 @@ textures_id = {
     '.': 'floor',
     'E': 'floor_end',
     'S': 'floor_start',
-    'w': 'Wall_old',
-    ',': 'floor_old',
-    'e': 'floor_end_old',
-    's': 'floor_start_old',
+    'w': 'Wall_2',
+    ',': 'floor_2',
+    'e': 'floor_end_2',
+    's': 'floor_start_2',
     '0': 'air',
     ' ': 'air',
     'L': 'lives',
