@@ -1,7 +1,7 @@
 
 # Экран
 WIDTH = 1920
-HEIGHT = 1020
+HEIGHT = 1080
 FPS = 80
 Half_HEIGHT = HEIGHT // 2
 Half_WIDHT = WIDTH // 2

@@ -11,6 +11,7 @@ pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("My Game")
+pygame.display.set_icon(pygame.image.load('icon.png'))
 clock = pygame.time.Clock()
 textures = textures_load()
 level_number = 1
@@ -166,13 +167,13 @@ while running:
         screen.fill(BLACK)
         player.tp_reload()
         draw_2(screen, level[0], level[4], player, cam_pos, textures, level[5], level[6], level[7], level[9], level[10],
-               keys[pygame.K_LALT], level[11])
+               (keys[pygame.K_LALT] or keys[pygame.K_RALT]), level[11])
         draw_reload(screen, player.time_reload, player.tp_reload_time)
         level_scripts(level_number, player, screen, level, scripts, k_space, tp_script)
-        draw_text(screen, str(clock), 20, 0, 0, RED)
-        draw_text(screen, str(time / FPS) + ' s', 20, 200, 0, RED)
-        draw_text(screen, f'level: {level_number}', 20, 300, 0, RED)
-        pygame.draw.circle(screen, BLUE, mouse_pos, 3 * SCALE_x)
+        # draw_text(screen, str(clock), 20, 0, 0, RED)
+        # draw_text(screen, str(time / FPS) + ' s', 20, 200, 0, RED)
+        draw_text(screen, f'Уровень: {level_number}', int(20 * SCALE_x), 20, 0, WHITE)
+        # pygame.draw.circle(screen, BLUE, mouse_pos, 3 * SCALE_x)
         pygame.display.flip()
 
     if end:
@@ -181,7 +182,8 @@ while running:
                 if event.key == pygame.K_ESCAPE:
                     end, menu = False, True
         screen.fill((190, 190, 190))
-        draw_text(screen, 'Спасибо что поиграли в мою игру', int(50 * SCALE_x), Half_WIDHT, Half_HEIGHT, BLUE, True,
+        draw_text(screen, 'Спасибо, что поиграли в игру', int(50 * SCALE_x), Half_WIDHT, Half_HEIGHT, BLUE, True,
                   True)
+        draw_text(screen, '"ESC"', int(30 * SCALE_x), Half_WIDHT, HEIGHT - int(100 * SCALE_y), BLUE, True, True)
         pygame.display.flip()
 pygame.quit()

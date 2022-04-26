@@ -98,6 +98,7 @@ def message(screen, text):
     screen.blit(text1, (x, y))
     pygame.draw.rect(screen, WHITE, (x - 10 * SCALE_x, y - 10 * SCALE_y, text1.get_size()[0] + 20 * SCALE_y, text1.get_size()[1] + 20 * SCALE_y), 1)
     pygame.draw.rect(screen, WHITE, (x - 8 * SCALE_x, y - 8 * SCALE_y, text1.get_size()[0] + 16 * SCALE_y, text1.get_size()[1] + 16 * SCALE_y), 1)
+    pygame.draw.rect(screen, WHITE, (x + text1.get_size()[0] - text2.get_size()[0], y + text1.get_size()[1] + text2.get_size()[1], text2.get_size()[0], text2.get_size()[1]))
     screen.blit(text2, (x + text1.get_size()[0] - text2.get_size()[0], y + text1.get_size()[1] + text2.get_size()[1]))
 
 def update(level):

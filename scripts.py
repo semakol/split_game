@@ -4,7 +4,7 @@ from entity.cube import Cube
 def level_scripts(level_number, player, screen, level, scripts, k_space, tp_script):
     if level_number == 1:
         if not scripts[0]:
-            message(screen, 'Ходить: W, A, S, D')
+            message(screen, 'Нажмите "Пробел"')
             player.stuck = True
             player.tp_on = False
             tp_script[0] = False
@@ -14,29 +14,29 @@ def level_scripts(level_number, player, screen, level, scripts, k_space, tp_scri
                 k_space[0] = False
                 scripts.append(False)
         elif not scripts[1]:
+            message(screen, 'Ходить: W, A, S, D или Стрелочки')
+            player.stuck = True
+            player.tp_on = False
+            tp_script[0] = False
+            if k_space[0]:
+                player.stuck = False
+                scripts[1] = True
+                k_space[0] = False
+                scripts.append(False)
+        elif not scripts[2]:
             player.stuck = True
             player.tp_on = False
             message(screen, 'Диктор: Встаньте на зелёный квадрат')
             if k_space[0]:
                 player.stuck = False
-                scripts[1] = 1
+                scripts[2] = 1
                 k_space[0] = 0
                 scripts.append(0)
-        elif not scripts[2]:
-            if player.p_pos == (3, 2):
-                player.stuck = True
-                player.tp_on = False
-                message(screen, 'Диктор: Здраствуйте, испытуемый №42069')
-                if k_space[0]:
-                    player.stuck = False
-                    scripts[2] = 1
-                    k_space[0] = 0
-                    scripts.append(0)
         elif not scripts[3]:
             if player.p_pos == (3, 2):
                 player.stuck = True
                 player.tp_on = False
-                message(screen, 'Диктор: Вы будете проходить испытание с пространственой аномалией')
+                message(screen, 'Диктор: Здраствуйте, испытуемый №42069')
                 if k_space[0]:
                     player.stuck = False
                     scripts[3] = 1
@@ -46,21 +46,21 @@ def level_scripts(level_number, player, screen, level, scripts, k_space, tp_scri
             if player.p_pos == (3, 2):
                 player.stuck = True
                 player.tp_on = False
-                message(screen, 'Диктор: Пройдите в следущую комнату')
+                message(screen, 'Диктор: Вы будете проходить испытание с пространственой аномалией')
                 if k_space[0]:
-                    for door in level[5]:
-                        if door.pos == (6, 6) or door.pos == (9, 6):
-                            door.on = True
                     player.stuck = False
                     scripts[4] = 1
                     k_space[0] = 0
                     scripts.append(0)
         elif not scripts[5]:
-            if player.p_pos == (10, 6):
+            if player.p_pos == (3, 2):
                 player.stuck = True
                 player.tp_on = False
-                message(screen, 'Диктор: Перед вами куб и кнопка')
+                message(screen, 'Диктор: Пройдите в следущую комнату')
                 if k_space[0]:
+                    for door in level[5]:
+                        if door.pos == (6, 6) or door.pos == (9, 6):
+                            door.on = True
                     player.stuck = False
                     scripts[5] = 1
                     k_space[0] = 0
@@ -69,20 +69,30 @@ def level_scripts(level_number, player, screen, level, scripts, k_space, tp_scri
             if player.p_pos == (10, 6):
                 player.stuck = True
                 player.tp_on = False
-                message(screen, 'Диктор: Я думаю вы разберётесь что делать')
+                message(screen, 'Диктор: Перед вами куб и кнопка')
                 if k_space[0]:
                     player.stuck = False
                     scripts[6] = 1
                     k_space[0] = 0
                     scripts.append(0)
         elif not scripts[7]:
+            if player.p_pos == (10, 6):
+                player.stuck = True
+                player.tp_on = False
+                message(screen, 'Диктор: Я думаю вы разберётесь что делать')
+                if k_space[0]:
+                    player.stuck = False
+                    scripts[7] = 1
+                    k_space[0] = 0
+                    scripts.append(0)
+        elif not scripts[8]:
             if player.p_pos == (12, 2):
                 player.stuck = True
                 player.tp_on = False
                 message(screen, 'Поднять, опустить Куб "E"')
                 if k_space[0]:
                     player.stuck = False
-                    scripts[7] = 1
+                    scripts[8] = 1
                     k_space[0] = 0
                     scripts.append(0)
     elif level_number == 2:
