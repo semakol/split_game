@@ -1,5 +1,5 @@
 import pygame
-from numba import njit
+
 
 from defs import chop_frames, update
 from settings import *
